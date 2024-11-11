@@ -1,6 +1,6 @@
 import { AlignJustify, Book, Brush, Image, Palette } from 'lucide-react';
 import React, { useState } from 'react';
-
+import { useDetailItem } from '@/context/DetailItelmProvider';
 interface SidebarItem {
     name: string;
     icon: React.ReactNode;
@@ -8,6 +8,7 @@ interface SidebarItem {
 
 const LeftSideBar: React.FC = () => {
     const [activeItem, setActiveItem] = useState<string>('Font');
+    const itemContext = useDetailItem();
     const items: SidebarItem[] = [
         { name: 'Font', icon: <Book className="w-5 h-5" /> },
         { name: 'Background', icon: <Palette className="w-5 h-5" /> },
@@ -18,6 +19,7 @@ const LeftSideBar: React.FC = () => {
 
     const handleClick = (itemName: string): void => {
         setActiveItem(itemName);
+        itemContext.setDetailItem(itemName);
     };
 
     return (
