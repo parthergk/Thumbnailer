@@ -1,13 +1,16 @@
 "use client"
 import { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Download, Zap } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const ThumbnailFetcher = () => {
-      const [videoUrl, setVideoUrl] = useState<string>("");
+  const [videoUrl, setVideoUrl] = useState<string>("");
   const [thumbnails, setThumbnails] = useState<string[]>([]);
+  const router = useRouter();
 
   const fetchThumbnail = (): void => {
     const videoId = videoUrl.split("v=")[1]?.split("&")[0];
@@ -31,15 +34,17 @@ const ThumbnailFetcher = () => {
   };
 
   const analyzeThumbnail = (thumbnailUrl: string): void => {
-    // Implement analyze logic here
+    const queryParams = new URLSearchParams({ thumbnailUrl }).toString();
+    const url = `/analyze?${queryParams}`;
+    router.push(url);
   };
 
   return (
     <>
-    <Card className="w-full max-w-3xl m-5 p-6 border-none mt-16">
+      <Card className="w-full max-w-3xl m-5 p-6 border-none mt-16">
         <CardHeader>
           <CardTitle className=" text-center">YouTube Thumbnail Analyzer</CardTitle>
-        </CardHeader>.
+        </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-4">
             <Input
@@ -51,17 +56,23 @@ const ThumbnailFetcher = () => {
             <Button onClick={fetchThumbnail}>Fetch Thumbnail</Button>
           </div>
         </CardContent>
-        {/* <CardFooter className="text-sm text-muted-foreground text-center block">
-          Enter a YouTube video URL and click 'Fetch Thumbnail' to get started.
-        </CardFooter> */}
       </Card>
-      
+
       <Card className="w-full max-w-4xl border-none">
         <CardContent>
-        <div className="grid grid-cols-3 gap-4 mt-8 max-h-[400px] overflow-y-scroll scrollbar-thin pb-24">
+          <div className="grid grid-cols-3 gap-4 mt-8 max-h-[400px] overflow-y-scroll scrollbar-thin pb-24">
             {thumbnails.map((thumbnailUrl, index) => (
               <div key={index} className="flex flex-col items-center">
-                <img src={thumbnailUrl} alt={`Thumbnail ${index}`} className="w-full rounded max-w-[272] max-h-[204px]" />
+                <Image
+                  src={thumbnailUrl}
+                  alt={`Thumbnail ${index}`}
+                  width={272}
+                  height={204}
+                  className="w-full rounded"
+                  style={{ maxWidth: '272px', maxHeight: '204px' }}
+                  // placeholder="blur" // Optional: add if you want a blur effect while loading
+                  loading="lazy"
+                />
                 <div className="flex justify-between mt-2 w-full">
                   <Button
                     variant="secondary"
@@ -82,9 +93,9 @@ const ThumbnailFetcher = () => {
             ))}
           </div>
         </CardContent>
-      </Card>    
+      </Card>
     </>
-  )
-}
+  );
+};
 
-export default ThumbnailFetcher
+export default ThumbnailFetcher;
