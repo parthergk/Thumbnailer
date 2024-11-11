@@ -11,7 +11,7 @@ interface ItemContextType {
 
 // Create the provider component
 export const DetailItemProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [detailItem, setDetailItem] = useState<string>('font');
+    const [detailItem, setDetailItem] = useState<string>('Font');
 
     return (
         <DetailItemContext.Provider value={{ detailItem, setDetailItem }}>
