@@ -11,9 +11,9 @@ const LeftSideBar: React.FC = () => {
     const itemContext = useDetailItem();
     const items: SidebarItem[] = [
         { name: 'Font', icon: <Book className="w-5 h-5" /> },
-        { name: 'Background', icon: <Palette className="w-5 h-5" /> },
         { name: 'Color', icon: <Brush className="w-5 h-5" /> },
         { name: 'Image', icon: <Image className="w-5 h-5" /> },
+        { name: 'Background', icon: <Palette className="w-5 h-5" /> },
         { name: 'Detail', icon: <AlignJustify className="w-5 h-5" /> },
     ];
 
