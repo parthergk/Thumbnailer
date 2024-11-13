@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Pipette } from 'lucide-react';
 import ColorClip from './ColorClip';
+import { colors } from '@/lib/constant/data';
+
+interface ColorProps {
+  code: string;
+  name: string;
+}
 
 const Color: React.FC = () => {
   const [eyeColor, setEyeColor] = useState<string>('');
-
-  const colors = ["Text color", "Background color"];
 
   const eyeDropper = async () => {
     if (!window.EyeDropper) {
@@ -24,10 +28,10 @@ const Color: React.FC = () => {
   return (
     <>
       <div className="w-full flex flex-col gap-4 my-3">
-        {colors.map((color) => (
-          <div key={color} className="flex flex-col">
-            <span className="text-sm">{color}</span>
-            <ColorClip color="#212121" />
+        {colors.map((color: ColorProps) => (
+          <div key={color.code} className="flex flex-col">
+            <span className="text-sm">{color.name}</span>
+            <ColorClip color={color.code} />
           </div>
         ))}
       </div>

@@ -18,6 +18,8 @@ const ThumbnailFetcher = () => {
       throw new Error("Invalid YouTube URL");
     }
     const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/sddefault.jpg`;
+    console.log("Thumbnail url",thumbnailUrl);
+    
     setThumbnails([...thumbnails, thumbnailUrl]);
     setVideoUrl("");
   };
