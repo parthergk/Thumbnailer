@@ -12,6 +12,7 @@ import Detail from "@/components/resourcesItem/Detail";
 import { aiApi } from "@/lib/actions/aiApi.action";
 import { useEffect, useState } from "react";
 import { DETAILED_FONT_PROMPT, FONT_AND_BACKGROUND_PROMPT } from "@/lib/prompts";
+import { Suspense } from "react";
 
 // Define the type for font and color data
 interface FontItem {
@@ -112,4 +113,10 @@ const Analyze: React.FC = () => {
   );
 };
 
-export default Analyze;
+const AnalyzeWithSuspense: React.FC = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Analyze />
+  </Suspense>
+);
+
+export default AnalyzeWithSuspense;
