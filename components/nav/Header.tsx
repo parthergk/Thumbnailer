@@ -11,7 +11,7 @@ const Header: React.FC = () => {
           <div className="flex items-center">
             <a href="/" className="flex items-center space-x-2">
               <span className="text-2xl font-bold text-black">✱</span>
-              <span className="text-xl font-semibold text-black">Thumbnailer</span>
+              <span className="text-xl font-semibold text-black">Thumblyzer</span>
             </a>
           </div>
 
