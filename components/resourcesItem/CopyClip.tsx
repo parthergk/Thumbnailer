@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 import { CircleCheck, Copy } from 'lucide-react';
 
-const CopyClip = ({copyClip}) => {
+interface CopyClipProps {
+    copyClip: string;
+}
+
+const CopyClip: React.FC<CopyClipProps> = ({ copyClip }) => {
     const [copy, setCopy] = useState(true);
     let timeoutId: NodeJS.Timeout;
 
@@ -10,11 +14,11 @@ const CopyClip = ({copyClip}) => {
         if (value) {
             navigator.clipboard.writeText(value);
         }
-        setCopy(false)
+        setCopy(false);
         // Clear existing timeout if present
         clearTimeout(timeoutId);
 
-        // Reset the icon after 5 seconds
+        // Reset the icon after 3 seconds
         timeoutId = setTimeout(() => {
             setCopy(true);
         }, 3000);
@@ -22,7 +26,7 @@ const CopyClip = ({copyClip}) => {
 
     useEffect(() => {
         return () => clearTimeout(timeoutId);
-    }, [])
+    }, []);
 
     return (
         <Button
@@ -30,13 +34,9 @@ const CopyClip = ({copyClip}) => {
             size="icon"
             onClick={() => copyToClipboard(copyClip)}
         >
-            {
-                copy ? <Copy className="h-4 w-4" /> : <CircleCheck />
-            }
-
-
+            {copy ? <Copy className="h-4 w-4" /> : <CircleCheck />}
         </Button>
-    )
-}
+    );
+};
 
-export default CopyClip
+export default CopyClip;
