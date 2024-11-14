@@ -24,9 +24,10 @@ const Color: React.FC<ColorComponentProps> = ({ data }) => {
       alert('EyeDropper API is not supported in this browser.');
       return;
     }
-    const eyeDropper = new window.EyeDropper();
+    
     try {
-      const result = await eyeDropper.open();
+      // Directly use window.EyeDropper.open(), no need to instantiate with `new`
+      const result = await window.EyeDropper.open();
       setEyeColor(result.sRGBHex); // Set the selected color to eyeColor
     } catch (err) {
       console.error("Color selection was canceled or an error occurred:", err);
