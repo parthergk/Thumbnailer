@@ -72,8 +72,6 @@ const ThumbnailFetcher = () => {
                   height={204}
                   className="w-full rounded"
                   style={{ maxWidth: '272px', maxHeight: '204px' }}
-                  // placeholder="blur" // Optional: add if you want a blur effect while loading
-                  loading="lazy"
                 />
                 <div className="flex justify-between mt-2 w-full">
                   <Button

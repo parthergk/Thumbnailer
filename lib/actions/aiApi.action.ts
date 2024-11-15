@@ -1,5 +1,4 @@
 'use server'
-
 import { GoogleAIFileManager } from "@google/generative-ai/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import axios from "axios";
@@ -41,7 +40,8 @@ async function downloadAndSaveImage(imageUri: string): Promise<string> {
     const response = await axios.get(imageUri, { responseType: 'arraybuffer' });
     const imgBuffer = Buffer.from(response.data);
 
-    const tempFilePath = path.join(__dirname, `temp-img.jpg`);
+    // Use the writable temp directory
+    const tempFilePath = path.join('/tmp', 'temp-img.jpg');
     await writeFile(tempFilePath, imgBuffer);
 
     return tempFilePath;
