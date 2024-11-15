@@ -1,9 +1,12 @@
 // global.d.ts
-interface EyeDropper {
-    open(): Promise<{ sRGBHex: string }>;
-  }
-  
-  interface Window {
-    EyeDropper?: EyeDropper;
-  }
-  
+interface EyeDropperResult {
+  sRGBHex: string;
+}
+
+declare class EyeDropper {
+  open(): Promise<EyeDropperResult>;
+}
+
+interface Window {
+  EyeDropper: typeof EyeDropper;
+}
