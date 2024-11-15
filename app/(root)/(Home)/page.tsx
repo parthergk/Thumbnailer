@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,15 +12,45 @@ const ThumbnailFetcher = () => {
   const [thumbnails, setThumbnails] = useState<string[]>([]);
   const router = useRouter();
 
+  useEffect(() => {
+    try {
+      const updatedThumbnailGet = localStorage.getItem("img");
+      const localThumbnail = updatedThumbnailGet ? JSON.parse(updatedThumbnailGet) : [];
+      setThumbnails(localThumbnail);
+    } catch (error) {
+      console.error("Failed to parse localStorage data", error);
+      setThumbnails([]); // Reset to an empty array on failure
+    }
+  }, []);
+
+
   const fetchThumbnail = (): void => {
-    const videoId = videoUrl.split("v=")[1]?.split("&")[0];
+
+    const trimmedUrl = videoUrl.trim();
+    if (trimmedUrl.length === 0) {
+      alert("Enter Youtube Video Url");
+      return;
+    }
+
+    // Extract video ID from multiple valid YouTube URL formats
+    const videoIdMatch = trimmedUrl.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
+    const videoId = videoIdMatch ? videoIdMatch[1] : null;
     if (!videoId) {
-      throw new Error("Invalid YouTube URL");
+      setVideoUrl('');
+      alert("Invalid YouTube URL");
+      return;
     }
     const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/sddefault.jpg`;
-    console.log("Thumbnail url",thumbnailUrl);
-    
-    setThumbnails([...thumbnails, thumbnailUrl]);
+    if (thumbnails.includes(thumbnailUrl)) {
+      setVideoUrl('');
+      alert("Thumbnail Already Exists");
+      return;
+    }
+
+    const updatedThumbnailSet = [...thumbnails, thumbnailUrl];
+
+    localStorage.setItem('img', JSON.stringify(updatedThumbnailSet));
+    setThumbnails(updatedThumbnailSet);
     setVideoUrl("");
   };
 
@@ -70,9 +100,9 @@ const ThumbnailFetcher = () => {
                   alt={`Thumbnail ${index}`}
                   width={272}
                   height={204}
-                  className="w-full rounded"
-                  style={{ maxWidth: '272px', maxHeight: '204px' }}
+                  className="w-full h-auto rounded"
                 />
+
                 <div className="flex justify-between mt-2 w-full">
                   <Button
                     variant="secondary"

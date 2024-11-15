@@ -14,7 +14,6 @@ interface ColorComponentProps {
 }
 
 const Color: React.FC<ColorComponentProps> = ({ data }) => {
-  console.log("color data", data);
 
   const [eyeColor, setEyeColor] = useState<string>(''); // State for storing the picked color
 
