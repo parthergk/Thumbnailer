@@ -28,7 +28,7 @@ interface ColorItem {
 
 const Analyze: React.FC = () => {
   const searchParams = useSearchParams();
-  const thumbnailUrl = searchParams.get('thumbnailUrl');
+  const thumbnailUrl = searchParams ? searchParams.get('thumbnailUrl') : null;
   const { detailItem } = useDetailItem(); // You may want to type `detailItem`
   
   // Initialize state with type definitions
