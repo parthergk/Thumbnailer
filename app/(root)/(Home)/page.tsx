@@ -14,11 +14,11 @@ const ThumbnailFetcher = () => {
 
   useEffect(() => {
     try {
-      const updatedThumbnailGet = localStorage.getItem("img");
+      const updatedThumbnailGet = sessionStorage.getItem("img");
       const localThumbnail = updatedThumbnailGet ? JSON.parse(updatedThumbnailGet) : [];
       setThumbnails(localThumbnail);
     } catch (error) {
-      console.error("Failed to parse localStorage data", error);
+      console.error("Failed to parse sessionStorage data", error);
       setThumbnails([]); // Reset to an empty array on failure
     }
   }, []);
@@ -49,7 +49,7 @@ const ThumbnailFetcher = () => {
 
     const updatedThumbnailSet = [...thumbnails, thumbnailUrl];
 
-    localStorage.setItem('img', JSON.stringify(updatedThumbnailSet));
+    sessionStorage.setItem('img', JSON.stringify(updatedThumbnailSet));
     setThumbnails(updatedThumbnailSet);
     setVideoUrl("");
   };
