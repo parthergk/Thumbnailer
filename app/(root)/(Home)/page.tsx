@@ -46,13 +46,13 @@ const ThumbnailFetcher = () => {
       alert("Thumbnail Already Exists");
       return;
     }
-
-    const updatedThumbnailSet = [...thumbnails, thumbnailUrl];
-
-    sessionStorage.setItem('img', JSON.stringify(updatedThumbnailSet));
-    setThumbnails(updatedThumbnailSet);
+    setThumbnails((prev)=>[...prev, thumbnailUrl]);
     setVideoUrl("");
   };
+  
+  useEffect(()=>{
+    sessionStorage.setItem('img', JSON.stringify(thumbnails));
+  },[thumbnails])
 
   const downloadThumbnail = (thumbnailUrl: string): void => {
     const link = document.createElement("a");
