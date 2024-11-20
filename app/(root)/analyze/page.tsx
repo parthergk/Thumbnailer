@@ -119,4 +119,4 @@ const AnalyzeWithSuspense: React.FC = () => (
   </Suspense>
 );
 
-export default AnalyzeWithSuspense;
+export default Analyze;
