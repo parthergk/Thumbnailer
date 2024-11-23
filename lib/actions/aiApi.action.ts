@@ -42,6 +42,7 @@ async function downloadAndSaveImage(imageUri: string): Promise<string> {
 
     // Use the writable temp directory
     const tempFilePath = path.join('/tmp', 'temp-img.jpg');
+    // const tempFilePath = path.join(__dirname, `temp-img.jpg`);
     await writeFile(tempFilePath, imgBuffer);
 
     return tempFilePath;
@@ -80,10 +81,16 @@ async function analyzeImage(prompt: string, imageUri: string): Promise<string> {
     
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    console.log("Prompt", prompt);
+    
     const result = await model.generateContent([
       prompt,
       { fileData: { fileUri: imageUri, mimeType: "image/jpeg" } },
     ]);
+
+    console.log("Result", result);
+    
+
     console.log("Analysis Result:", result.response.text());
     return result.response.text();
   } catch (error) {

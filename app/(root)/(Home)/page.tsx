@@ -74,11 +74,11 @@ const ThumbnailFetcher = () => {
   return (
     <>
       <Card className="w-full max-w-3xl m-5 p-6 border-none mt-16">
-        <CardHeader>
+        <CardHeader className=" px-0 sm:px-6">
           <CardTitle className=" text-center">YouTube Thumbnail Analyzer</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-center space-x-4 space-y-6 sm:space-y-0">
             <Input
               type="text"
               placeholder="Enter YouTube video URL"
@@ -92,7 +92,7 @@ const ThumbnailFetcher = () => {
 
       <Card className="w-full max-w-4xl border-none">
         <CardContent>
-          <div className="grid grid-cols-3 gap-4 mt-8 max-h-[400px] overflow-y-scroll scrollbar-thin pb-24">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-h-[400px] overflow-y-scroll scrollbar-thin pb-24 space-y-6 sm:space-y-0">
             {thumbnails.map((thumbnailUrl, index) => (
               <div key={index} className="flex flex-col items-center">
                 <Image
