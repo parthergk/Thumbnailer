@@ -47,7 +47,7 @@ const Font: React.FC<FontProps> = ({ data }) => {
 
         :
 
-        <div className="w-full flex flex-col gap-2 my-1">
+        <div className="w-full flex flex-col gap-2 my-1 p-1">
           <select
             className="text-center border py-2 rounded-md outline-none"
             onChange={handleSelection}

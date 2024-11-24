@@ -36,9 +36,9 @@ const Color: React.FC<ColorComponentProps> = ({ data }) => {
 
   return (
     <>
-      <div className="w-full flex flex-col gap-4 my-3">
-        {data.map((color) => (
-          <div key={color.code} className="flex flex-col">
+      <div className="w-full flex flex-col gap-4 my-3 ">
+        {data.map((color, index) => (
+          <div key={(color.code,index)} className="flex flex-col">
             <span className="text-sm">{color.name}</span>
             <ColorClip color={color.code} />
           </div>

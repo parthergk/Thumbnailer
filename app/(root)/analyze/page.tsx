@@ -88,7 +88,7 @@ const Analyze: React.FC = () => {
           <div className="flex flex-col lg:flex-row space-x-0 md:space-x-5 gap-5">
             {thumbnailUrl ? (
               <>
-                <div className=" w-[272px] sm:w-[400px]">
+                <div className=" w-full max-w-[272px] sm:max-w-[400px]">
                   <Image
                     src={thumbnailUrl}
                     alt="Thumbnail"
@@ -98,7 +98,7 @@ const Analyze: React.FC = () => {
                     loading="lazy"
                   />
                 </div>
-                <div className="h-full w-full max-w-72 sm:max-w-sm">
+                <div className="h-full w-full max-w-72 sm:max-w-sm max-h-[280px] lg:max-h-[500px] overflow-y-scroll lg:overflow-hidden scrollbar-thin">
                   <h1 className="text-lg font-semibold">{detailItem} Analysis</h1>
                   {selectedItem ? selectedItem.component : <p>No Data</p>}
                 </div>
