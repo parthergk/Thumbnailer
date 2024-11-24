@@ -78,27 +78,27 @@ const Analyze: React.FC = () => {
     <main className="self-start w-full mt-16 flex">
       <LeftSideBar />
       <Card className="w-full px-5">
-        <CardHeader>
+        <CardHeader className=" px-0 md:px-6">
           <CardTitle>Analyze your thumbnail</CardTitle>
           <p className="text-sm text-gray-400">
             Get details about this thumbnail like font, color, background, etc.
           </p>
         </CardHeader>
-        <CardContent>
-          <div className="flex space-x-5 gap-5">
+        <CardContent className=" px-0 md:px-6">
+          <div className="flex flex-col md:flex-row space-x-0 md:space-x-5 gap-5">
             {thumbnailUrl ? (
               <>
-                <div className="w-[423px] h-[355px]">
+                <div className=" w-full max-w-[373px]">
                   <Image
                     src={thumbnailUrl}
                     alt="Thumbnail"
                     width={373}
                     height={305}
-                    className="w-full rounded"
+                    className="w-full h-full rounded"
                     loading="lazy"
                   />
                 </div>
-                <div className="h-full w-full max-w-sm">
+                <div className="h-full w-full max-w-60 md:max-w-sm">
                   <h1 className="text-lg font-semibold">{detailItem} Analysis</h1>
                   {selectedItem ? selectedItem.component : <p>No Data</p>}
                 </div>

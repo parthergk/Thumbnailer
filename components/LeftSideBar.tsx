@@ -23,13 +23,13 @@ const LeftSideBar: React.FC = () => {
     };
 
     return (
-        <div className="w-full h-screen max-w-xs p-6 border-r">
-            <div className="flex flex-col gap-2">
+        <div className="w-full h-screen max-w-24 md:max-w-32 lg:max-w-xs p-3 lg:p-6 border-r">
+            <div className="flex flex-col gap-3 lg:gap-2">
                 {items.map((item) => (
                     <button
                         key={item.name}
                         onClick={() => handleClick(item.name)}
-                        className={`flex items-center gap-3 p-2 rounded-lg text-left text-black font-medium
+                        className={`flex flex-col lg:flex-row items-center gap-1 lg:gap-3 p-2 rounded-lg text-left text-black font-medium
                             ${activeItem === item.name ? 'bg-gray-200 ' : 'hover:bg-gray-100'}
                         `}
                     >
