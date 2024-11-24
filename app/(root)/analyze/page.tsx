@@ -30,7 +30,7 @@ const Analyze: React.FC = () => {
   const searchParams = useSearchParams();
   const thumbnailUrl = searchParams ? searchParams.get('thumbnailUrl') : null;
   const { detailItem } = useDetailItem(); // You may want to type `detailItem`
-  
+
   // Initialize state with type definitions
   const [textDataorg, setTextDataorg] = useState<FontItem[]>([]);
   const [colorData, setColorData] = useState<ColorItem[]>([]);
@@ -64,7 +64,7 @@ const Analyze: React.FC = () => {
       if (response.fonts) {
         setTextDataorg(response.fonts);
       }
-      
+
       // Handle color data if applicable
       if (response.colors) {
         setColorData(response.colors); // Assuming colors are returned
@@ -77,7 +77,7 @@ const Analyze: React.FC = () => {
   return (
     <main className="self-start w-full mt-16 flex">
       <LeftSideBar />
-      <Card className="w-full px-5">
+      <Card className="w-full px-3 sm:px-5">
         <CardHeader className=" px-0 md:px-6">
           <CardTitle>Analyze your thumbnail</CardTitle>
           <p className="text-sm text-gray-400">
@@ -85,20 +85,20 @@ const Analyze: React.FC = () => {
           </p>
         </CardHeader>
         <CardContent className=" px-0 md:px-6">
-          <div className="flex flex-col md:flex-row space-x-0 md:space-x-5 gap-5">
+          <div className="flex flex-col lg:flex-row space-x-0 md:space-x-5 gap-5">
             {thumbnailUrl ? (
               <>
-                <div className=" w-full max-w-[373px]">
+                <div className=" w-[272px] sm:w-[400px]">
                   <Image
                     src={thumbnailUrl}
                     alt="Thumbnail"
-                    width={373}
-                    height={305}
-                    className="w-full h-full rounded"
+                    width={400}
+                    height={(400 / 16) * 9}
+                    className="w-full h-auto rounded"
                     loading="lazy"
                   />
                 </div>
-                <div className="h-full w-full max-w-60 md:max-w-sm">
+                <div className="h-full w-full max-w-72 sm:max-w-sm">
                   <h1 className="text-lg font-semibold">{detailItem} Analysis</h1>
                   {selectedItem ? selectedItem.component : <p>No Data</p>}
                 </div>

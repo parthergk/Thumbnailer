@@ -40,7 +40,7 @@ const ThumbnailFetcher = () => {
       alert("Invalid YouTube URL");
       return;
     }
-    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/sddefault.jpg`;
+    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
     if (thumbnails.includes(thumbnailUrl)) {
       setVideoUrl('');
       alert("Thumbnail Already Exists");
