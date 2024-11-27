@@ -1,131 +1,64 @@
-"use client"
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download, Zap } from "lucide-react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+import React from "react";
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import { div } from "framer-motion/client";
+import Link from "next/link";
 
-const ThumbnailFetcher = () => {
-  const [videoUrl, setVideoUrl] = useState<string>("");
-  const [thumbnails, setThumbnails] = useState<string[]>([]);
-  const router = useRouter();
-
-  useEffect(() => {
-    try {
-      const updatedThumbnailGet = sessionStorage.getItem("img");
-      const localThumbnail = updatedThumbnailGet ? JSON.parse(updatedThumbnailGet) : [];
-      setThumbnails(localThumbnail);
-    } catch (error) {
-      console.error("Failed to parse sessionStorage data", error);
-      setThumbnails([]); // Reset to an empty array on failure
-    }
-  }, []);
-
-
-  const fetchThumbnail = (): void => {
-
-    const trimmedUrl = videoUrl.trim();
-    if (trimmedUrl.length === 0) {
-      alert("Enter Youtube Video Url");
-      return;
-    }
-
-    // Extract video ID from multiple valid YouTube URL formats
-    const videoIdMatch = trimmedUrl.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
-    const videoId = videoIdMatch ? videoIdMatch[1] : null;
-    if (!videoId) {
-      setVideoUrl('');
-      alert("Invalid YouTube URL");
-      return;
-    }
-    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-    if (thumbnails.includes(thumbnailUrl)) {
-      setVideoUrl('');
-      alert("Thumbnail Already Exists");
-      return;
-    }
-    setThumbnails((prev)=>[...prev, thumbnailUrl]);
-    setVideoUrl("");
-  };
-  
-  useEffect(()=>{
-    sessionStorage.setItem('img', JSON.stringify(thumbnails));
-  },[thumbnails])
-
-  const downloadThumbnail = (thumbnailUrl: string): void => {
-    const link = document.createElement("a");
-    link.href = thumbnailUrl;
-    link.download = 'downloaded-image.jpg';
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const analyzeThumbnail = (thumbnailUrl: string): void => {
-    const queryParams = new URLSearchParams({ thumbnailUrl }).toString();
-    const url = `/analyze?${queryParams}`;
-    router.push(url);
-  };
-
+const Home = () => {
   return (
-    <>
-      <Card className="w-full max-w-3xl m-5 p-6 border-none mt-16">
-        <CardHeader className=" px-0 sm:px-6">
-          <CardTitle className=" text-center">YouTube Thumbnail Analyzer</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col sm:flex-row items-center space-x-4 space-y-6 sm:space-y-0">
-            <Input
-              type="text"
-              placeholder="Enter YouTube video URL"
-              value={videoUrl}
-              onChange={(e) => setVideoUrl(e.target.value)}
-            />
-            <Button onClick={fetchThumbnail}>Fetch Thumbnail</Button>
-          </div>
-        </CardContent>
-      </Card>
+    <div className="pt-16 w-full">
+    <BackgroundBeamsWithCollision>
+      <div className="flex flex-col">
+        <div
+          className="flex justify-center"
+          style={{ opacity: 1, transform: "none" }}
+        >
+          <button
+            className="bg-neutral-50 dark:bg-neutral-700 no-underline group cursor-pointer relative md:shadow-2xl shadow-zinc-900 rounded-full p-px text-[10px] sm:text-xs font-semibold leading-6 text-neutral-700 dark:text-neutral-300 inline-block w-fit mx-auto"
+          >
+            <span className="absolute inset-0 overflow-hidden rounded-full">
+              <span className="absolute inset-0 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
+            </span>
+            <div className="relative flex space-x-2 items-center z-10 rounded-full bg-neutral-100 dark:bg-neutral-800 py-1.5 px-4 ring-1 ring-white/10">
+              <span>Helping creators design standout thumbnails effortlessly!</span>
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.75 8.75L14.25 12L10.75 15.25"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                ></path>
+              </svg>
+            </div>
+            <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-neutral-400/0 via-neutral-400/90 to-neutral-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
+          </button>
+        </div>
+        <h1 className=" mt-6 font-g text-2xl md:text-4xl lg:text-8xl font-semibold mx-auto text-center z-10 text-black dark:text-white tracking-tight">
+          Analyze YouTube Thumbnails <br /> and Design Like a Pro!
+        </h1>
+        <p className="text-center mt-8 text-base md:text-xl text-muted dark:text-muted-dark max-w-[22rem] md:max-w-3xl mx-auto z-10 text-neutral-500 dark:text-white">
+          Unleash your creativity! Our tool analyzes font styles, colors, and
+          layouts of existing YouTube thumbnails, giving you the insights and
+          inspiration to create stunning thumbnails.
+        </p>
 
-      <Card className="w-full max-w-4xl border-none">
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-h-[400px] overflow-y-scroll scrollbar-thin pb-24 space-y-6 sm:space-y-0">
-            {thumbnails.map((thumbnailUrl, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <Image
-                  src={thumbnailUrl}
-                  alt={`Thumbnail ${index}`}
-                  width={272}
-                  height={204}
-                  className="w-full h-auto rounded"
-                />
-
-                <div className="flex justify-between mt-2 w-full">
-                  <Button
-                    variant="secondary"
-                    onClick={() => downloadThumbnail(thumbnailUrl)}
-                  >
-                    <Download className="w-5 h-5" />
-                    Download
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={() => analyzeThumbnail(thumbnailUrl)}
-                  >
-                    <Zap className="w-5 h-5" />
-                    Analyze
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    </>
+        <div className="flex justify-center items-center mt-6">
+          <Link href='/dashboard'>
+          <button className="text-sm py-2 px-4 bg-black rounded-full text-white">
+            Get started for free
+          </button>
+          </Link>
+        </div>
+      </div>
+    </BackgroundBeamsWithCollision>
+    </div>
   );
 };
 
-export default ThumbnailFetcher;
+export default Home;
