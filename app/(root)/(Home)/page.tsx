@@ -1,8 +1,7 @@
 "use client";
 
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-import { Youtube, Eye, Layout, Palette, ArrowRight, CheckCircle, Link as LinkIcon, Search, Zap, Quote } from "lucide-react";
-import Link from "next/link";
+import { Youtube, Eye, Layout, Palette, ArrowRight, CheckCircle, Link as LinkIcon, Search, Zap, Quote, Mail, Twitter, Github, Instagram } from "lucide-react";import Link from "next/link";
 import Image from "next/image";
 import { StepCard } from "@/components/ui/step-card";
 
@@ -179,7 +178,7 @@ export default function Home() {
       </div>
 
       {/* Benefits Section */}
-      <div className="px-4 py-40">
+      <div className="px-4 pt-40 pb-24">
         <h2 className="text-3xl md:text-4xl font-semibold text-center mb-12 text-black dark:text-white">
           Why Choose Our Tool?
         </h2>
@@ -197,6 +196,107 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* footer image */}
+    <div className="my-16 mx-auto max-w-10xl px-4">
+      <div className="relative rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
+        {/* Image with improved gradient and object positioning */}
+        <div className="relative">
+          <Image
+            src="/img.png"
+            alt="YouTube Thumbnail Analyzer Demo"
+            width={1200}
+            height={630}
+            className="w-full h-[500px] object-cover brightness-75 contrast-125 transition-all duration-300 hover:brightness-90"
+          />
+          
+          {/* Gradient overlay with improved visibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20 z-10" />
+        </div>
+
+        {/* Content Overlay */}
+        <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-6">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4 max-w-3xl leading-tight">
+            Analyze YouTube Thumbnails in Seconds
+          </h1>
+          <p className="text-neutral-200 text-lg mb-8 max-w-xl">
+            Manually analyzing thumbnails is time-consuming. Streamline your content strategy with instant, precise insights.
+          </p>
+          
+          <div className="flex justify-center items-center space-x-4">
+            <Link href="/dashboard" className="group">
+              <button className="px-8 py-3.5 bg-white text-black font-semibold rounded-full 
+                hover:bg-neutral-100 transition-all duration-300 
+                flex items-center gap-2.5 shadow-lg group-hover:shadow-xl">
+                Get Started for Free
+                <ArrowRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform" />
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+    {/* Footer Section */}
+    <footer className="bg-white text-neutral-800 pt-20 pb-10 px-4">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between  gap-12">
+          {/* About Section */}
+          <div className="col-span-1 md:col-span-2">
+            <h3 className="text-xl font-semibold mb-4 text-neutral-900">About Thumbnail Analyzer</h3>
+            <p className="text-neutral-600 mb-6 leading-relaxed max-w-lg">
+              Our AI-powered tool helps content creators optimize their YouTube thumbnails
+              by analyzing successful videos and providing actionable insights about fonts,
+              colors, and layouts.
+            </p>
+            <div className="flex space-x-4">
+              <a href="https://twitter.com" className="text-neutral-500 hover:text-black transition-colors">
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a href="https://github.com" className="text-neutral-500 hover:text-black transition-colors">
+                <Github className="w-5 h-5" />
+              </a>
+              <a href="https://instagram.com" className="text-neutral-500 hover:text-black transition-colors">
+                <Instagram className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-neutral-900">Contact Us</h3>
+            <div className="space-y-3">
+              <a href="mailto:support@thumbnailanalyzer.com" 
+                 className="flex items-center space-x-2 text-neutral-600 hover:text-black transition-colors">
+                <Mail className="w-4 h-4" />
+                <span>support@thumbnailanalyzer.com</span>
+              </a>
+              <p className="text-neutral-600">
+                Available Monday to Friday<br />
+                9:00 AM - 6:00 PM EST
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-neutral-200">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="text-neutral-500 text-sm">
+              © {new Date().getFullYear()} Thumbnail Analyzer. All rights reserved.
+            </div>
+            <div className="flex space-x-6 text-sm">
+              <Link href="/privacy" className="text-neutral-600 hover:text-black transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="text-neutral-600 hover:text-black transition-colors">
+                Terms of Service
+              </Link>
+              <Link href="/cookies" className="text-neutral-600 hover:text-black transition-colors">
+                Cookie Policy
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
