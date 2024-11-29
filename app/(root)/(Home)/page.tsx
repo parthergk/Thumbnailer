@@ -248,13 +248,13 @@ export default function Home() {
               colors, and layouts.
             </p>
             <div className="flex space-x-4">
-              <a href="https://twitter.com" className="text-neutral-500 hover:text-black transition-colors">
+              <a href="https://twitter.com/parther_gk" className="text-neutral-500 hover:text-black transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="https://github.com" className="text-neutral-500 hover:text-black transition-colors">
+              <a href="https://github.com/parthergk" className="text-neutral-500 hover:text-black transition-colors">
                 <Github className="w-5 h-5" />
               </a>
-              <a href="https://instagram.com" className="text-neutral-500 hover:text-black transition-colors">
+              <a href="https://instagram.com/parther_gk" className="text-neutral-500 hover:text-black transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
@@ -284,13 +284,13 @@ export default function Home() {
               © {new Date().getFullYear()} Thumbnail Analyzer. All rights reserved.
             </div>
             <div className="flex space-x-6 text-sm">
-              <Link href="/privacy" className="text-neutral-600 hover:text-black transition-colors">
+              <Link href="/" className="text-neutral-600 hover:text-black transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="text-neutral-600 hover:text-black transition-colors">
+              <Link href="/" className="text-neutral-600 hover:text-black transition-colors">
                 Terms of Service
               </Link>
-              <Link href="/cookies" className="text-neutral-600 hover:text-black transition-colors">
+              <Link href="/" className="text-neutral-600 hover:text-black transition-colors">
                 Cookie Policy
               </Link>
             </div>
