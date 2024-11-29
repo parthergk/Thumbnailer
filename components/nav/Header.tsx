@@ -4,14 +4,14 @@ import { Globe, HelpCircle, User } from 'lucide-react';
 const Header: React.FC = () => {
 
   return (
-    <header className=" w-full border-b border-gray-200 bg-white fixed">
+    <header className=" w-full border-b border-gray-200 bg-white fixed z-20">
       <div className=" w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo and Brand */}
           <div className="flex items-center">
             <a href="/" className="flex items-center space-x-2">
               <span className="text-2xl font-bold text-black">✱</span>
-              <span className="text-xl font-semibold text-black">Thumblyzer</span>
+              <span className="text-lg font-semibold text-black">Thumblyzer</span>
             </a>
           </div>
 
