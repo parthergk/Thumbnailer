@@ -41,8 +41,8 @@ async function downloadAndSaveImage(imageUri: string): Promise<string> {
     const imgBuffer = Buffer.from(response.data);
 
     // Use the writable temp directory
-    // const tempFilePath = path.join('/tmp', 'temp-img.jpg');
-    const tempFilePath = path.join(__dirname, `temp-img.jpg`);
+    const tempFilePath = path.join('/tmp', 'temp-img.jpg');
+    // const tempFilePath = path.join(__dirname, `temp-img.jpg`);
     await writeFile(tempFilePath, imgBuffer);
 
     return tempFilePath;
