@@ -64,7 +64,9 @@ async function uploadImage(filePath: string): Promise<string> {
       mimeType: "image/jpeg",
       displayName: "Uploaded Image",
     });
-    console.log(`Uploaded file as: ${uploadResult.file.uri}`);
+    
+    // console.log(`Uploaded file as: ${uploadResult.file.uri}`); //log file upload
+
     return uploadResult.file.uri;
   } catch (error) {
     console.error("Error uploading the image:", error);
@@ -81,17 +83,18 @@ async function analyzeImage(prompt: string, imageUri: string): Promise<string> {
     
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    console.log("Prompt", prompt);
+
+    // console.log("Prompt", prompt); //log prompt
     
     const result = await model.generateContent([
       prompt,
       { fileData: { fileUri: imageUri, mimeType: "image/jpeg" } },
     ]);
 
-    console.log("Result", result);
+    // console.log("Result", result); //log result from the api 
+    // console.log("Analysis Result:", result.response.text());
     
 
-    console.log("Analysis Result:", result.response.text());
     return result.response.text();
   } catch (error) {
     console.error("Error analyzing the image:", error);

@@ -57,17 +57,23 @@ const Analyze: React.FC = () => {
 
     try {
       const data = await aiApi({ prompt: prompts, img: thumbnailUrl });
-      const jsonresponse = data.replace(/```json|```/g, '');
-      const response = JSON.parse(jsonresponse);
+      // const jsonresponse = data.replace(/```json|```/g, '');
 
-      // Assuming the response has a "fonts" property
-      if (response.fonts) {
-        setTextDataorg(response.fonts);
+      // Extract JSON from response
+      const jsonPart = data.match(/\{[\s\S]*\}/)?.[0];
+      if (!jsonPart) {
+        console.error("No JSON found in the response");
+        return;
       }
 
-      // Handle color data if applicable
-      if (response.colors) {
-        setColorData(response.colors); // Assuming colors are returned
+      const parsedData = JSON.parse(jsonPart);
+
+      // Update states with parsed data
+      if (parsedData.fonts) {
+        setTextDataorg(parsedData.fonts as FontItem[]);
+      }
+      if (parsedData.colors) {
+        setColorData(parsedData.colors as ColorItem[]);
       }
     } catch (error) {
       console.error("API call error:", error);
