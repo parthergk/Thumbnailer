@@ -11,7 +11,7 @@ interface StepCardProps {
 
 export function StepCard({ icon: Icon, step, title, description, image }: StepCardProps) {
   return (
-<div className="relative group perspective-1000">
+<div className="relative group perspective-1000 cursor-pointer">
       <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-500 
                       opacity-0 group-hover:opacity-75 blur-sm transition-all duration-500 
                       animate-gradient-xy" />

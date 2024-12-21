@@ -218,7 +218,7 @@ export default function Home() {
           {benefits.map((benefit, index) => (
             <div
               key={index}
-              className="flex justify-between items-center space-x-3 mb-4"
+              className=" cursor-pointer flex justify-between items-center space-x-3 mb-4"
             >
               <span className="text-lg text-neutral-700 dark:text-neutral-300">
                 {index}.{benefit}
