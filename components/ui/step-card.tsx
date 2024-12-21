@@ -11,32 +11,68 @@ interface StepCardProps {
 
 export function StepCard({ icon: Icon, step, title, description, image }: StepCardProps) {
   return (
-    <div className="relative group">
-      <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-neutral-200 to-neutral-300 dark:from-neutral-700 dark:to-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity" />
-      <div className="relative p-6 bg-white dark:bg-black rounded-lg">
+<div className="relative group perspective-1000">
+      <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-teal-400 via-blue-500 to-indigo-500 
+                      opacity-0 group-hover:opacity-75 blur-sm transition-all duration-500 
+                      animate-gradient-xy" />
+      
+      <div className="relative p-6 bg-white dark:bg-black rounded-lg 
+                      transition-all duration-500 ease-out
+                      group-hover:translate-y-1 group-hover:shadow-xl
+                      border border-neutral-200 dark:border-neutral-800">
+        
+        {/* Header Section */}
         <div className="flex items-center space-x-4">
-          <div className="p-3 bg-neutral-100 dark:bg-neutral-800 rounded-xl">
-            <Icon className="w-6 h-6 text-gray-700" />
+          <div className="p-3 bg-neutral-100 dark:bg-neutral-800 rounded-xl
+                          transform transition-all duration-500
+                          group-hover:rotate-12 group-hover:scale-110">
+            <Icon className="w-6 h-6 text-gray-700 dark:text-gray-300" />
           </div>
-          <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+          <span className="text-sm font-medium bg-gradient-to-r from-teal-500 to-blue-500 
+                         bg-clip-text text-transparent
+                         transform transition-all duration-500
+                         group-hover:scale-105">
             Step {step}
           </span>
         </div>
-        <h3 className="mt-4 text-xl font-semibold text-black dark:text-white">
+
+        {/* Content Section */}
+        <h3 className="mt-4 text-xl font-semibold text-black dark:text-white
+                       transform transition-all duration-500
+                       group-hover:translate-x-2">
           {title}
         </h3>
-        <p className="mt-2 mb-4 text-neutral-600 dark:text-neutral-400">
+        <p className="mt-2 mb-4 text-neutral-600 dark:text-neutral-400
+                      transform transition-all duration-300
+                      group-hover:text-neutral-800 dark:group-hover:text-neutral-200">
           {description}
         </p>
-        <div className="relative h-48 w-full rounded-lg overflow-hidden">
+
+        {/* Image Container */}
+        <div className="relative h-48 w-full rounded-lg overflow-hidden
+                        transform transition-all duration-500
+                        group-hover:scale-105">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-500/10 
+                          opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <Image
             src={image}
             alt={title}
             fill
-            className=" object-contain"
+            className="object-contain transform transition-all duration-700
+                       group-hover:scale-110"
           />
         </div>
       </div>
     </div>
+
   );
 }
+
+const keyframes = {
+  '0%, 100%': {
+    'background-position': '0% 50%',
+  },
+  '50%': {
+    'background-position': '100% 50%',
+  },
+};
