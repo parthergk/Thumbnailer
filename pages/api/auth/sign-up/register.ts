@@ -5,7 +5,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function registerUser(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
         return res.status(405).json({ success: false, message: "Method not allowed" });
-    }
+    } 
 
     const { name, username, email, password } = req.body;
 
