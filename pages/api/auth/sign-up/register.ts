@@ -1,6 +1,7 @@
 import User from "@/database/models/userModel";
 import connectDB from "@/lib/connection";
 import { NextApiRequest, NextApiResponse } from "next";
+import bcrypt from 'bcrypt';
 
 export default async function registerUser(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
@@ -29,8 +30,10 @@ export default async function registerUser(req: NextApiRequest, res: NextApiResp
             return res.status(400).json({ success: false, message: "User already exists with this Email" });
         }
 
+        const hashPassword = await bcrypt.hash(password, 10);
+
         // Create and save the new user
-        const newUser = new User({ name, username, email, password });
+        const newUser = new User({ name, username, email, password: hashPassword });
         await newUser.save();
 
         console.log("User registered successfully");

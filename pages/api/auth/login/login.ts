@@ -1,7 +1,7 @@
 import User from "@/database/models/userModel";
 import connectDB from "@/lib/connection";
 import { NextApiRequest, NextApiResponse } from "next";
-
+import bcrypt from 'bcrypt'
 
 export async function login(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
@@ -19,13 +19,13 @@ export async function login(req: NextApiRequest, res: NextApiResponse) {
     try {
          const user = await User.findOne(email ? { email } : { username });
         if (!user) {
-            return res.status(400).json({ success: false, message: "Invalid credentials" });
+            return res.status(400).json({ success: false, message: "Invalid email or username" });
         }
 
         // Validate the password
-        const isPasswordValid = await user.comparePassword(password);
-        if (!isPasswordValid) {
-            return res.status(400).json({ success: false, message: "Invalid credentials" });
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ success: false, message: "Invalid password" });
         }
 
         res.status(200).json({
