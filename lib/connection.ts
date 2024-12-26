@@ -13,6 +13,11 @@ const connectDB = async ():Promise<void> =>{
     };
 
     try{
+        if (!process.env.MONGO_URI) {
+            console.log('MongoDB uri not geted');
+            
+            return 
+        }
         const db = await mongoose.connect(process.env.MONGO_URI);
 
         connection.isConnected = db.connections[0].readyState;
