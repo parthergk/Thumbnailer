@@ -13,15 +13,14 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req): Promise<any> {
-
         if (!credentials || !credentials.identifier || !credentials.password) {
           throw new Error("Missing credentials");
         }
+        
         // Connect to the database
         await connectDB();
 
         try {
-          // Find user by email or username
           const user = await User.findOne({
             $or: [
               { email: credentials.identifier },
@@ -30,19 +29,22 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!user) {
-            throw new Error("No user found with this identifier");
+            throw new Error("Invalid username or password");
           }
 
-          // Compare password
+          if (!user.password) {
+            throw new Error("User password not set");
+          }
+
           const isMatch = await bcrypt.compare(credentials.password, user.password);
           if (!isMatch) {
-            throw new Error("Incorrect password");
+            throw new Error("Invalid username or password");
           }
 
-          // Return user object if authentication is successful
           return user;
         } catch (error: any) {
-          throw new Error(error.message || "Authentication failed");
+          console.error("Authorization error:", error);
+          throw new Error("Authentication failed, please try again.");
         }
       },
     }),
@@ -51,27 +53,27 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       if (token) {
-        session.user._id = token._id
-        session.user.username = token.username
+        session.user._id = token._id;
+        session.user.username = token.username;
       }
-        return session
-      },
-      async jwt({ token, user }) {
-        if (user) {
-          token._id = user._id?.toString()
-          token.username = user.username
-        }
-        return token
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token._id = user._id?.toString();
+        token.username = user.username;
       }
-  },
-
-  pages: {
-    signIn: '/sign-in'
+      return token;
+    },
   },
 
   session: {
     strategy: 'jwt',
   },
-
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: '/sign-in',
+  },
+  
+  
 };
