@@ -1,10 +1,15 @@
 import Thumbnail from "@/database/models/dataModel";
 import User from "@/database/models/userModel";
+import connectDB from "@/lib/connection";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export const thumbnail = async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function saveThumbnail (req: NextApiRequest, res: NextApiResponse) {
+    if (req.method !== "POST") {
+        return res.status(405).json({ success: false, message: "Method not allowed" });
+    } 
     const { userId, imgUrl } = req.body;
 
+    await connectDB();
     try {
         // Await the user query to ensure the user is found before proceeding
         const user = await User.findById(userId);

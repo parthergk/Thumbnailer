@@ -11,8 +11,14 @@ import Img from "@/components/resourcesItem/Img";
 import Detail from "@/components/resourcesItem/Detail";
 import { aiApi } from "@/lib/actions/aiApi.action";
 import { useEffect, useState } from "react";
-import { DETAILED_FONT_PROMPT, FONT_AND_BACKGROUND_PROMPT } from "@/lib/prompts";
+import {
+  DETAILED_FONT_PROMPT,
+  FONT_AND_BACKGROUND_PROMPT,
+} from "@/lib/prompts";
 import { Suspense } from "react";
+import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 // Define the type for font and color data
 interface FontItem {
@@ -27,13 +33,18 @@ interface ColorItem {
 }
 
 const Analyze: React.FC = () => {
+  const [feedback, setFeedback] = useState("");
   const searchParams = useSearchParams();
-  const thumbnailUrl = searchParams ? searchParams.get('thumbnailUrl') : null;
+  const thumbnailUrl = searchParams ? searchParams.get("thumbnailUrl") : null;
+  const router = useRouter();
+  // get the user id form the session
+  const { data, status } = useSession();
   const { detailItem } = useDetailItem(); // You may want to type `detailItem`
 
   // Initialize state with type definitions
   const [textDataorg, setTextDataorg] = useState<FontItem[]>([]);
   const [colorData, setColorData] = useState<ColorItem[]>([]);
+
 
   const items = [
     { name: "Font", component: <Font data={textDataorg} /> },
@@ -80,6 +91,36 @@ const Analyze: React.FC = () => {
     }
   };
 
+  async function handleSave() {
+    try {
+      const response = await fetch("api/thumbnail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: data?.user?._id,
+          imgUrl: thumbnailUrl,
+        }),
+      });
+
+      if (response.status === 401) {
+        router.push("/sign-in");
+        return;
+      }
+
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          setFeedback("Thumbnail saved successfully!");
+        } else {
+          setFeedback("Failed to save thumbnail: " + result.message);
+        }
+      }
+    } catch (error) {}
+  }
+  useEffect(() => {}, [data, status]);
+
   return (
     <main className="self-start w-full mt-16 flex">
       <LeftSideBar />
@@ -105,9 +146,13 @@ const Analyze: React.FC = () => {
                   />
                 </div>
                 <div className="h-full w-full max-w-72 sm:max-w-sm max-h-[280px] lg:max-h-[500px] overflow-y-scroll lg:overflow-hidden scrollbar-thin">
-                  <h1 className="text-lg font-semibold">{detailItem} Analysis</h1>
+                  <h1 className="text-lg font-semibold">
+                    {detailItem} Analysis
+                  </h1>
                   {selectedItem ? selectedItem.component : <p>No Data</p>}
                 </div>
+                <Button onClick={() => handleSave()} disabled={!thumbnailUrl || !data?.user?._id}>Save Thumbnail</Button>
+                {feedback &&  <p className="text-sm text-gray-500">{feedback}</p>}
               </>
             ) : (
               <p className="text-gray-500">No thumbnail URL provided.</p>
