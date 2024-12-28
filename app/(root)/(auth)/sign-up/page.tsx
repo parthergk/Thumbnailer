@@ -9,10 +9,13 @@ import { Button } from "@/components/ui/button";
 import FormFieldCp from "@/components/FormField";
 
 // Define validation schema using Zod
-export const formSchema = z.object({
+const formSchema = z.object({
   name: z.string().nonempty("Name is required"),
   username: z.string().nonempty("Username is required"),
-  email: z.string().email("Invalid email address").nonempty("Email is required"),
+  email: z
+    .string()
+    .email("Invalid email address")
+    .nonempty("Email is required"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
@@ -48,7 +51,9 @@ const Page: React.FC = () => {
   return (
     <div className="mt-16 flex justify-center w-full">
       <div className="mt-4 w-full max-w-xs md:max-w-sm h-full max-h-min bg-white shadow-md rounded-lg p-6 border">
-        <h2 className="text-black text-2xl font-bold text-center mb-6">Sign Up</h2>
+        <h2 className="text-black text-2xl font-bold text-center mb-6">
+          Sign Up
+        </h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {fieldNames.map((name) => (
