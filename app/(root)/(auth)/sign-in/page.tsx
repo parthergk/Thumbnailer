@@ -16,8 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
-  identifier: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  identifier: z.string({required_error:"Email or Username is required"}),
+  password: z.string({required_error:"Password is required"}).min(6, "Password must be at least 6 characters"),
 });
 
 const Page = () => {
@@ -56,9 +56,9 @@ const Page = () => {
   }
 
   return (
-    <div className="mt-16 flex justify-center items-center">
-      <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-black text-2xl font-bold text-center mb-6">Login</h2>
+    <div className="mt-16 flex justify-center w-full">
+      <div className=" mt-24 md:mt-16 w-full max-w-xs md:max-w-sm  h-full max-h-min bg-white shadow-md rounded-lg p-6 border">
+        <h2 className="text-black text-2xl font-bold text-center mb-6">Sign In</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Username/Email Field */}
@@ -68,7 +68,7 @@ const Page = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="block text-sm font-medium text-gray-700">
-                    Username/Email
+                    Username or Email
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -108,11 +108,12 @@ const Page = () => {
               disabled={form.formState.isSubmitting}
               className="w-full text-white font-medium py-2 px-4 rounded-md"
             >
-              {form.formState.isSubmitting ? "Submitting..." : "Login"}
+              {form.formState.isSubmitting ? "Submitting..." : "Sign In"}
             </Button>
           </form>
         </Form>
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+      <div className="text-black text-sm mt-4 text-center">Don't have an account? <p className=" inline font-medium cursor-pointer underline">Sign Up</p></div>
       </div>
     </div>
   );
