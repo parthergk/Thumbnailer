@@ -12,14 +12,13 @@ export const authOptions: NextAuthOptions = {
         identifier: { label: "Username or Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req): Promise<any> {
-        if (!credentials || !credentials.identifier || !credentials.password) {
-          throw new Error("Missing credentials");
+      async authorize(credentials, req) {
+        if (!credentials?.identifier || !credentials?.password) {
+          throw new Error("missing_credentials");
         }
-        
-        // Connect to the database
+      
         await connectDB();
-
+      
         try {
           const user = await User.findOne({
             $or: [
@@ -27,26 +26,32 @@ export const authOptions: NextAuthOptions = {
               { username: credentials.identifier },
             ],
           });
-
+      
           if (!user) {
-            throw new Error("Invalid username or password");
+            throw new Error("invalid Username or Email");
           }
-
-          if (!user.password) {
-            throw new Error("User password not set");
-          }
-
+      
           const isMatch = await bcrypt.compare(credentials.password, user.password);
           if (!isMatch) {
-            throw new Error("Invalid username or password");
+            throw new Error("invalid password");
           }
-
-          return user;
-        } catch (error: any) {
+      
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            username: user.username,
+          };
+        } catch (error) {
           console.error("Authorization error:", error);
-          throw new Error("Authentication failed, please try again.");
+          if (error instanceof Error) {
+            throw new Error(error.message || "Authentication failed");
+          } else {
+            throw new Error("Authentication failed");
+          }
         }
-      },
+      }
+      
     }),
   ],
 

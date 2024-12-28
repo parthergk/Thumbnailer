@@ -32,7 +32,7 @@ const FormFieldCp: React.FC<MyComponentProps> = ({ name, form }) => (
           <Input
             {...field}
             name={name}
-            className="outline-none mt-1 block w-full rounded-md shadow-sm sm:text-sm"
+            className=" text-black outline-none mt-1 block w-full rounded-md shadow-sm sm:text-sm"
           />
         </FormControl>
         <FormMessage className="text-red-500 text-sm mt-1" />
