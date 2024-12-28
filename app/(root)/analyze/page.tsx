@@ -151,7 +151,7 @@ const Analyze: React.FC = () => {
                   </h1>
                   {selectedItem ? selectedItem.component : <p>No Data</p>}
                 </div>
-                <Button onClick={() => handleSave()} disabled={!thumbnailUrl || !data?.user?._id}>Save Thumbnail</Button>
+                <Button onClick={() => handleSave()} disabled={!thumbnailUrl}>Save Thumbnail</Button>
                 {feedback &&  <p className="text-sm text-gray-500">{feedback}</p>}
               </>
             ) : (
