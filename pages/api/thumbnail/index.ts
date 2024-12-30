@@ -9,10 +9,14 @@ export default async function saveThumbnail (req: NextApiRequest, res: NextApiRe
     } 
     const { userId, imgUrl } = req.body;
 
+    console.log("user id from the frontendin server", userId);
+    
+
     await connectDB();
     try {
         // Await the user query to ensure the user is found before proceeding
         const user = await User.findById(userId);
+        
         if (!user) {
             return res.status(400).json({ success: false, message: "User not found" });
         }

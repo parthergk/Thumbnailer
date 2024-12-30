@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 // Define form validation schema using Zod
 const formSchema = z.object({
@@ -28,8 +28,9 @@ const formSchema = z.object({
 const Page: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [feedback, setFeedback] = useState('');
-
+  
   // React Hook Form setup
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,22 +39,20 @@ const Page: React.FC = () => {
       password: "",
     },
   });
-
+  
   // Form submit handler
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setError(null); // Clear previous errors
-
+    
     try {
       // Capture the current URL or a fallback URL
-      // const callbackUrl = new URLSearchParams(window.location.search).get(
-      //   "callbackUrl"
-      // ) || "/";
+      const callbackUrl =  searchParams?.get("callbackUrl") ?? "/" ;
 
       const result = await signIn("credentials", {
         redirect: false,
         identifier: values.identifier, // Use form field value
         password: values.password,     // Use form field value
-        // callbackUrl,                  // Redirect to where the user came from
+        callbackUrl,                  // Redirect to where the user came from
       });
 
       if (result?.error) {
@@ -61,8 +60,9 @@ const Page: React.FC = () => {
       } else if (result?.ok) {        
         setFeedback("Sign Up Successfully");
         form.reset(); // Reset the form upon success
-        // Redirect to the callback URL
-        // window.location.href = result.url;
+
+        // Redirect to the original page or fallback
+        window.location.href = result.url || callbackUrl;
       }
     } catch (err) {
       console.error("Unexpected error during sign-in:", err);

@@ -17,7 +17,7 @@ import {
 } from "@/lib/prompts";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 // Define the type for font and color data
@@ -39,12 +39,13 @@ const Analyze: React.FC = () => {
   const router = useRouter();
   // get the user id form the session
   const { data, status } = useSession();
+
   const { detailItem } = useDetailItem(); // You may want to type `detailItem`
 
   // Initialize state with type definitions
   const [textDataorg, setTextDataorg] = useState<FontItem[]>([]);
   const [colorData, setColorData] = useState<ColorItem[]>([]);
-
+  const [isSaving, setIsSeving] = useState<boolean>(false);
 
   const items = [
     { name: "Font", component: <Font data={textDataorg} /> },
@@ -92,6 +93,7 @@ const Analyze: React.FC = () => {
   };
 
   async function handleSave() {
+    setIsSeving(true);
     try {
       const response = await fetch("api/thumbnail", {
         method: "POST",
@@ -104,8 +106,10 @@ const Analyze: React.FC = () => {
         }),
       });
 
+      setIsSeving(false);
       if (response.status === 401) {
-        router.push("/sign-in");
+        // router.push("/sign-in");
+        router.push(`/sign-in?callbackUrl=${encodeURIComponent(window.location.href)}`);
         return;
       }
 
@@ -132,9 +136,10 @@ const Analyze: React.FC = () => {
           </p>
         </CardHeader>
         <CardContent className=" px-0 md:px-6">
-          <div className="flex flex-col lg:flex-row space-x-0 md:space-x-5 gap-5">
+          <div className="flex flex-col gap-5">
             {thumbnailUrl ? (
               <>
+              <div className="flex flex-col lg:flex-row space-x-0 md:space-x-5 gap-5">
                 <div className=" w-full max-w-[272px] sm:max-w-[400px]">
                   <Image
                     src={thumbnailUrl}
@@ -151,8 +156,15 @@ const Analyze: React.FC = () => {
                   </h1>
                   {selectedItem ? selectedItem.component : <p>No Data</p>}
                 </div>
-                <Button onClick={() => handleSave()} disabled={!thumbnailUrl}>Save Thumbnail</Button>
-                {feedback &&  <p className="text-sm text-gray-500">{feedback}</p>}
+                </div>
+                <div className=" flex flex-col gap-5 w-full max-w-[272px] sm:max-w-[400px]">
+                  <Button onClick={() => handleSave()} disabled={isSaving}>
+                    {isSaving ? "Saveing Thumbnail" : "Save Thumbnail"}
+                  </Button>
+                  {feedback && (
+                    <p className="text-sm text-gray-500">{feedback}</p>
+                  )}
+                </div>
               </>
             ) : (
               <p className="text-gray-500">No thumbnail URL provided.</p>

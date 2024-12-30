@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
         identifier: { label: "Username or Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials, req): Promise<any> {
         if (!credentials?.identifier || !credentials?.password) {
           throw new Error("missing_credentials");
         }
@@ -35,13 +35,7 @@ export const authOptions: NextAuthOptions = {
           if (!isMatch) {
             throw new Error("invalid password");
           }
-      
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            username: user.username,
-          };
+          return user
         } catch (error) {
           console.error("Authorization error:", error);
           if (error instanceof Error) {
@@ -58,9 +52,11 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       if (token) {
+        
         session.user._id = token._id;
         session.user.username = token.username;
       }
+      
       return session;
     },
     async jwt({ token, user }) {
