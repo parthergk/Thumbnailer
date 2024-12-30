@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -25,7 +25,7 @@ const formSchema = z.object({
     .min(6, "Password must be at least 6 characters"),
 });
 
-const Page: React.FC = () => {
+const Sign_in: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -144,4 +144,12 @@ const Page: React.FC = () => {
   );
 };
 
-export default Page;
+const Page: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Sign_in />
+    </Suspense>
+  );
+};
+
+export default Page
