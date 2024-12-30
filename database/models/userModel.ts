@@ -1,4 +1,5 @@
 import { models, model, Model, Schema, Document, CallbackError } from "mongoose";
+import { boolean } from "zod";
 // import bcrypt from "bcrypt";
 
 // Extend the User interface to include methods
@@ -7,6 +8,8 @@ interface User {
     username: string;
     email: string;
     password: string;
+    verifyCode: string;
+    isVerified: boolean;
 }
 
 interface UserDocument extends Document, User {
@@ -19,6 +22,8 @@ const userSchema = new Schema<UserDocument>({
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true, match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
     password: { type: String, required: true, minlength: 6 },
+    verifyCode: {type: String, required: true, minlength: 4},
+    isVerified: {type: Boolean, required: true, default: false}
 });
 
 // Middleware to hash the password before saving

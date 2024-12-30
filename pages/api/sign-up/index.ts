@@ -2,6 +2,7 @@ import User from "@/database/models/userModel";
 import connectDB from "@/lib/connection";
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from 'bcrypt';
+import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 
 export default async function registerUser(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
@@ -30,14 +31,24 @@ export default async function registerUser(req: NextApiRequest, res: NextApiResp
             return res.status(400).json({ success: false, message: "User already exists with this Email" });
         }
 
+        //hashing password
         const hashPassword = await bcrypt.hash(password, 10);
 
+        //generating Verify code 
+        let verifyCode = Math.floor(1000 + Math.random() * 9000).toString();
+
         // Create and save the new user
-        const newUser = new User({ name, username, email, password: hashPassword });
+        const newUser = new User({ name, username, email, password: hashPassword, verifyCode, isVerified:false });
         await newUser.save();
 
-        console.log("User registered successfully");
-        return res.status(201).json({ success: true, message: "User registered successfully", user: newUser });
+        //sending verificationEmail
+        const emailResponse = await sendVerificationEmail(email, username, verifyCode);        
+
+        if (!emailResponse.success) {
+            return res.status(500).json({success: false, message: emailResponse.message});
+        }
+
+        return res.status(201).json({ success: true, message: "User registered successfully. Please verify your account.", username: newUser.username });
 
     } catch (error) {
         console.error("Error registering user:", error);

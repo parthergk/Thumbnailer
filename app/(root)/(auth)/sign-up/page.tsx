@@ -55,9 +55,17 @@ const Page: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
+        
         if (result.success) {
-          setFeedback("Account created successfully! Please check your email to verify your account.");
+          setFeedback(
+            "Account created successfully! Please check your email to verify your account."
+          );
+
           form.reset(); // Reset the form upon success
+          
+          const queryParams = new URLSearchParams({ username: result.username }).toString();
+          const url = `/verifiyUser?${queryParams}`;
+          router.replace(url);
         } else {
           setError(result.message || "Something went wrong. Please try again.");
         }
@@ -98,7 +106,10 @@ const Page: React.FC = () => {
 
         <div className="text-black text-sm mt-4 text-center">
           Already have an account?{" "}
-          <span className="inline font-medium cursor-pointer underline" onClick={()=> router.push('/sign-in')}>
+          <span
+            className="inline font-medium cursor-pointer underline"
+            onClick={() => router.replace("/sign-in")}
+          >
             Sign In
           </span>
         </div>
