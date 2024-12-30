@@ -9,7 +9,7 @@ export const FooterImage = () => {
           {/* Image with improved gradient and object positioning */}
           <div className="relative">
             <Image
-              src="/img.png"
+              src="/img.jpg"
               alt="YouTube Thumbnail Analyzer Demo"
               width={1200}
               height={630}
@@ -21,11 +21,11 @@ export const FooterImage = () => {
           </div>
 
           {/* Content Overlay */}
-          <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-6">
-            <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4 max-w-3xl leading-tight">
+          <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-2 md:px-4">
+            <h1 className="text-2xl md:text-4xl lg:text-8xl font-extrabold text-white mb-4 leading-tight">
               Analyze YouTube Thumbnails in Seconds
             </h1>
-            <p className="text-neutral-200 text-lg mb-8 max-w-xl">
+            <p className="text-base md:text-xl text-neutral-200 mb-8 max-w-xl">
               Manually analyzing thumbnails is time-consuming. Streamline your
               content strategy with instant, precise insights.
             </p>
@@ -33,9 +33,9 @@ export const FooterImage = () => {
             <div className="flex justify-center items-center space-x-4">
               <Link href="/dashboard" className="group">
                 <button
-                  className="px-8 py-3.5 bg-white text-black font-semibold rounded-full 
+                  className="text-sm px-6 py-3 bg-white text-black rounded-full 
                 hover:bg-neutral-100 transition-all duration-300 
-                flex items-center gap-2.5 shadow-lg group-hover:shadow-xl"
+                flex items-center gap-2 shadow-lg group-hover:shadow-xl"
                 >
                   Get Started for Free
                   <ArrowRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform" />
