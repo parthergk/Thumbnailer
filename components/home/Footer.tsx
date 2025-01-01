@@ -48,7 +48,7 @@ export function Footer() {
               className="flex items-center space-x-2 text-neutral-600 hover:text-black transition-colors"
             >
               <Mail className="w-4 h-4" />
-              <span>support@thumbnailanalyzer.com</span>
+              <span>thumbnailanalyzer@gmail.com</span>
             </a>
             <p className="text-neutral-600">
               Available Monday to Friday

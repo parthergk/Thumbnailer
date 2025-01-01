@@ -25,7 +25,7 @@ export async function sendOTP(email: string, username: string, verifyCode: strin
             <p>Best regards,<br>The Resend Team</p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;" />
             <p style="font-size: 12px; color: #888;">
-              This email was sent to ${email}. If you have any questions, contact us at support@resend.dev.
+              This email was sent to ${email}. If you have any questions, contact us at thumbnailanalyzer@gmail.com.
             </p>
           </div>
         `,
