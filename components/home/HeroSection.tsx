@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function HeroSection() {
     return (
-      <div className="flex flex-col pt-16">
+      <div className=" w-full flex flex-col pt-16">
         <div className="flex justify-center" style={{ opacity: 1, transform: "none" }}>
           <button className="bg-neutral-50 dark:bg-neutral-700 no-underline group cursor-pointer relative md:shadow-2xl shadow-zinc-900 rounded-full p-px text-[10px] sm:text-xs font-semibold leading-6 text-neutral-700 dark:text-neutral-300 inline-block w-fit mx-auto">
           <span className="absolute inset-0 overflow-hidden rounded-full">

@@ -77,4 +77,4 @@ const Font: React.FC<FontProps> = ({ data }) => {
   );
 };
 
-export default Font;
+export default React.memo(Font);

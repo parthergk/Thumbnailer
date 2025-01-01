@@ -27,6 +27,10 @@ export const authOptions: NextAuthOptions = {
             ],
           });
       
+          if(!user?.isVerified){
+            throw new Error("User not verified");
+          }
+
           if (!user) {
             throw new Error("invalid Username or Email");
           }

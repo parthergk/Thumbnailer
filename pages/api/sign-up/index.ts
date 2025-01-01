@@ -3,6 +3,7 @@ import connectDB from "@/lib/connection";
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from 'bcrypt';
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+import { sendOTP } from "@/helpers/sendOTP";
 
 export default async function registerUser(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== "POST") {
@@ -42,7 +43,8 @@ export default async function registerUser(req: NextApiRequest, res: NextApiResp
         await newUser.save();
 
         //sending verificationEmail
-        const emailResponse = await sendVerificationEmail(email, username, verifyCode);        
+        const emailResponse = await sendOTP(email, username, verifyCode);        
+        // const emailResponse = await sendVerificationEmail(email, username, verifyCode);        
 
         if (!emailResponse.success) {
             return res.status(500).json({success: false, message: emailResponse.message});

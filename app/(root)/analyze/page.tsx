@@ -17,7 +17,7 @@ import {
 } from "@/lib/prompts";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 // Define the type for font and color data

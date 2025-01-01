@@ -14,7 +14,6 @@ interface ColorComponentProps {
 }
 
 const Color: React.FC<ColorComponentProps> = ({ data }) => {
-
   const [eyeColor, setEyeColor] = useState<string>(''); // State for storing the picked color
 
   // Function to open the EyeDropper API and pick a color
@@ -58,4 +57,4 @@ const Color: React.FC<ColorComponentProps> = ({ data }) => {
   );
 };
 
-export default Color;
+export default React.memo(Color);
