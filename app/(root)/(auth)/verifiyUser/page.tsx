@@ -19,99 +19,73 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 // Define form validation schema using Zod
 const formSchema = z.object({
-  identifier: z.string().nonempty("Username or Email is required"),
-  password: z
-    .string({ required_error: "Password is required" })
-    .min(6, "Password must be at least 6 characters"),
-});
+    code: z.string().nonempty("Verification code is required").min(4, "Verification code must be at least 4 digits"),
+  });
+  
 
 const Sign_in: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const username = searchParams?.get('username');
   const [feedback, setFeedback] = useState('');
   
   // React Hook Form setup
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      identifier: "",
-      password: "",
+      code: "",
     },
   });
   
   // Form submit handler
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setError(null); // Clear previous errors
+    setError(null);
+    setFeedback('');
     
     try {
-      // Capture the current URL or a fallback URL
-      const callbackUrl =  searchParams?.get("callbackUrl") ?? "/" ;
-
-      const result = await signIn("credentials", {
-        redirect: false,
-        identifier: values.identifier, // Use form field value
-        password: values.password,     // Use form field value
-        callbackUrl,                  // Redirect to where the user came from
+      const result = await fetch('/api/verify', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: values.code, username }), // Send code as object
       });
-
-      if (result?.error) {
-        setError(result.error);
-      } else if (result?.ok) {        
-        setFeedback("Sign Up Successfully");
-        form.reset(); // Reset the form upon success
-
-        // Redirect to the original page or fallback
-        if (result.url || callbackUrl) {
-          router.replace(result.url || callbackUrl);
-      }
+  
+      if (result.ok) {
+        setFeedback("Verification Successful");
+        form.reset();
+        // Uncomment to redirect after success
+        // const response = await result.json();
+        // window.location.href = response.url || '/';
+      } else {
+        const errorData = await result.json();
+        setError(errorData.message || "Verification failed. Please try again.");
       }
     } catch (err) {
-      console.error("Unexpected error during sign-in:", err);
+      console.error("Unexpected error during verification:", err);
       setError("An unexpected error occurred. Please try again.");
     }
   }
+  
 
   return (
     <div className="mt-16 flex justify-center w-full">
       <div className="mt-24 md:mt-16 w-full max-w-xs md:max-w-sm h-full max-h-min bg-white shadow-md rounded-lg p-6 border">
-        <h2 className="text-black text-2xl font-bold text-center mb-6">Sign In</h2>
+        <h2 className="text-black text-2xl font-bold text-center mb-6">Email Verification</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Username/Email Field */}
             <FormField
               control={form.control}
-              name="identifier"
+              name="code"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="block text-sm font-medium text-gray-700">
-                    Username or Email
+                    Verification Code
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       className="text-black outline-none mt-1 block w-full rounded-md shadow-sm sm:text-sm"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-500 text-sm mt-1" />
-                </FormItem>
-              )}
-            />
-
-            {/* Password Field */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="block text-sm font-medium text-gray-700">
-                    Password
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="password"
-                      className=" text-black outline-none mt-1 block w-full rounded-md shadow-sm sm:text-sm"
                     />
                   </FormControl>
                   <FormMessage className="text-red-500 text-sm mt-1" />
@@ -125,7 +99,7 @@ const Sign_in: React.FC = () => {
               disabled={form.formState.isSubmitting}
               className="w-full text-white font-medium py-2 px-4 rounded-md"
             >
-              {form.formState.isSubmitting ? "Submitting..." : "Sign In"}
+              {form.formState.isSubmitting ? "Verifiying..." : "Verifiy"}
             </Button>
           </form>
         </Form>
@@ -133,14 +107,6 @@ const Sign_in: React.FC = () => {
         {/* Error Message */}
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
         {feedback && <p className="text-green-500 text-sm mt-4">{feedback}</p>}
-
-        {/* Sign Up Redirect */}
-        <div className="text-black text-sm mt-4 text-center">
-          Don&apos;t have an account?{" "}
-          <span className="inline font-medium cursor-pointer underline" onClick={()=> router.replace('/sign-up')}>
-            Sign Up
-          </span>
-        </div>
       </div>
     </div>
   );

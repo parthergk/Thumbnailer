@@ -73,11 +73,11 @@ const ThumbnailFetcher = () => {
 
   return (
     <>
-      <Card className="w-full max-w-3xl m-5 p-6 border-none mt-16">
+      <Card className="w-full m-5 p-6 border-none mt-16 flex flex-col items-center">
         <CardHeader className=" px-0 sm:px-6">
-          <CardTitle className=" text-center">YouTube Thumbnail Analyzer</CardTitle>
+          <CardTitle className=" text-center text-2xl md:text-4xl lg:text-6xl">YouTube Thumbnail Analyzer</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className=" w-full max-w-3xl">
           <div className="flex flex-col sm:flex-row items-center space-x-4 space-y-6 sm:space-y-0">
             <Input
               type="text"

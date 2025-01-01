@@ -17,7 +17,7 @@ import {
 } from "@/lib/prompts";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
-import { getSession, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 // Define the type for font and color data
@@ -109,7 +109,7 @@ const Analyze: React.FC = () => {
       setIsSeving(false);
       if (response.status === 401) {
         // router.push("/sign-in");
-        router.push(`/sign-in?callbackUrl=${encodeURIComponent(window.location.href)}`);
+        router.replace(`/sign-in?callbackUrl=${encodeURIComponent(window.location.href)}`);
         return;
       }
 
