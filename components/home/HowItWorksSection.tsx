@@ -25,7 +25,7 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <div className="pt-48 px-4 bg-gradient-to-b from-neutral-100 to-white">
+    <div className="py-40 px-4 bg-gradient-to-b from-neutral-100 to-white">
       <h2 className="text-3xl md:text-4xl font-semibold text-center mb-12 text-black dark:text-white">
         How It Works
       </h2>

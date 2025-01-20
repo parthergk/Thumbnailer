@@ -7,11 +7,11 @@ interface FeatureCardProps {
 export function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
     <div
-      className="cursor-pointer group p-6 rounded-2xl bg-white/5 border border-neutral-200 dark:border-neutral-800 backdrop-blur-sm 
+      className="cursor-pointer group p-6 rounded-md bg-white/5 border border-neutral-300 dark:border-neutral-800 backdrop-blur-sm 
                    transition-all duration-300 ease-in-out
                    hover:border-blue-500 dark:hover:border-blue-400
                    hover:shadow-lg hover:shadow-blue-500/10
-                   hover:-translate-y-1"
+                   hover:-translate-y-1 shadow-lg"
     >
       <div
         className="p-3 text-gray-950 bg-neutral-100 dark:bg-neutral-800 rounded-xl w-fit

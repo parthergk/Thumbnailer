@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 export const FooterImage = () => {
   return (
-    <div className="my-16 mx-auto max-w-10xl px-4">
+    <div className="mb-16 mx-auto max-w-10xl px-4">
         <div className="relative rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
           {/* Image with improved gradient and object positioning */}
           <div className="relative">
@@ -21,7 +21,7 @@ export const FooterImage = () => {
           </div>
 
           {/* Content Overlay */}
-          <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-6">
+          <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-6 ">
             <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4 max-w-3xl leading-tight">
               Analyze YouTube Thumbnails in Seconds
             </h1>
@@ -33,15 +33,16 @@ export const FooterImage = () => {
             <div className="flex justify-center items-center space-x-4">
               <Link href="/dashboard" className="group">
                 <button
-                  className="px-8 py-3.5 bg-white text-black font-semibold rounded-full 
+                  className="text-sm font-semibold px-6 py-3 bg-white text-black rounded-full 
                 hover:bg-neutral-100 transition-all duration-300 
-                flex items-center gap-2.5 shadow-lg group-hover:shadow-xl"
+                flex items-center gap-2 shadow-lg group-hover:shadow-xl"
                 >
                   Get Started for Free
                   <ArrowRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
             </div>
+
           </div>
         </div>
       </div>
