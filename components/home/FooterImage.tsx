@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 export const FooterImage = () => {
   return (
-    <div className="my-16 mx-auto max-w-10xl px-4">
+    <div className="mb-16 mx-auto max-w-10xl px-4">
         <div className="relative rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
           {/* Image with improved gradient and object positioning */}
           <div className="relative">
@@ -33,7 +33,7 @@ export const FooterImage = () => {
             <div className="flex justify-center items-center space-x-4">
               <Link href="/dashboard" className="group">
                 <button
-                  className="text-sm px-6 py-3 bg-white text-black rounded-full 
+                  className="text-sm font-semibold px-6 py-3 bg-white text-black rounded-full 
                 hover:bg-neutral-100 transition-all duration-300 
                 flex items-center gap-2 shadow-lg group-hover:shadow-xl"
                 >
@@ -42,6 +42,7 @@ export const FooterImage = () => {
                 </button>
               </Link>
             </div>
+
           </div>
         </div>
       </div>

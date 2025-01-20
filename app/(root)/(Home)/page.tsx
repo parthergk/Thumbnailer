@@ -14,7 +14,7 @@ export default function Home() {
       </BackgroundBeamsWithCollision>
       <FeaturesSection />
       <HowItWorksSection />
-      <BenefitsSection />
+      {/* <BenefitsSection /> */}
       <FooterImage/>
       <Footer />
     </div>

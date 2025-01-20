@@ -28,7 +28,7 @@ const Header: React.FC = () => {
           <div className="flex items-center">
             <a href="/" className="flex items-center space-x-2">
               <span className="text-2xl font-bold text-black">✱</span>
-              <span className="text-lg font-semibold text-black">
+              <span className="text-base md:text-xl font-semibold text-black">
                 Thumblyzer
               </span>
             </a>

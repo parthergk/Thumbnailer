@@ -11,7 +11,7 @@ export function HeroSection() {
                 <span className="absolute inset-0 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
               </span>
               <div className="relative flex space-x-2 items-center z-10 rounded-full bg-neutral-100 dark:bg-neutral-800 py-1.5 px-4 ring-1 ring-white/10">
-                <span>
+                <span >
                   Helping creators design standout thumbnails effortlessly!
                 </span>
                 <svg
@@ -34,7 +34,7 @@ export function HeroSection() {
           </button>
         </div>
   
-        <h1 className="mt-6 font-g text-2xl md:text-4xl lg:text-8xl font-semibold mx-auto text-center z-10 text-black dark:text-white tracking-tight">
+        <h1 className="mt-6 text-2xl md:text-4xl lg:text-8xl font-semibold mx-auto text-center z-10 text-black dark:text-white tracking-tight">
           Analyze YouTube Thumbnails <br /> and Design Like a Pro!
         </h1>
   

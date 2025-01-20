@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-white text-neutral-800 pt-20 pb-10 px-4">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between  gap-12">
+    <footer className="bg-white text-neutral-800 pt-20 pb-5 px-4">
+      <div className="max-w-6xl px-0 md:px-10 flex flex-col md:flex-row justify-between  gap-12">
         {/* About Section */}
         <div className="col-span-1 md:col-span-2">
           <h3 className="text-xl font-semibold mb-4 text-neutral-900">
@@ -60,13 +60,13 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-neutral-200">
+      <div className="max-w-6xl px-0 md:px-10 mt-8 pt-5 border-t border-neutral-200">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-neutral-500 text-sm">
             © {new Date().getFullYear()} Thumbnail Analyzer. All rights
             reserved.
           </div>
-          <div className="flex space-x-6 text-sm">
+          {/* <div className="flex space-x-6 text-sm">
             <Link
               href="/"
               className="text-neutral-600 hover:text-black transition-colors"
@@ -85,7 +85,7 @@ export function Footer() {
             >
               Cookie Policy
             </Link>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
