@@ -31,7 +31,7 @@ const Sign_in: React.FC = () => {
   const searchParams = useSearchParams();
   const [feedback, setFeedback] = useState('');
   
-  // React Hook Form setup
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,28 +40,26 @@ const Sign_in: React.FC = () => {
     },
   });
   
-  // Form submit handler
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setError(null); // Clear previous errors
+    setError(null);
     
     try {
-      // Capture the current URL or a fallback URL
       const callbackUrl =  searchParams?.get("callbackUrl") ?? "/" ;
 
       const result = await signIn("credentials", {
         redirect: false,
-        identifier: values.identifier, // Use form field value
-        password: values.password,     // Use form field value
-        callbackUrl,                  // Redirect to where the user came from
+        identifier: values.identifier, 
+        password: values.password,     
+        callbackUrl,
       });
 
       if (result?.error) {
         setError(result.error);
       } else if (result?.ok) {        
         setFeedback("Sign Up Successfully");
-        form.reset(); // Reset the form upon success
+        form.reset();
 
-        // Redirect to the original page or fallback
         if (result.url || callbackUrl) {
           router.replace(result.url || callbackUrl);
       }
