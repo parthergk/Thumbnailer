@@ -1,5 +1,5 @@
 "use client";
-import { Globe, HelpCircle, User, LogIn } from "lucide-react";
+import { User, LogIn } from "lucide-react";
 import { useState } from "react";
 import UserDetial from "./UserDetial";
 import { useSession } from "next-auth/react";
@@ -9,6 +9,7 @@ const Header: React.FC = () => {
   const [showDetail, setShowDetail] = useState(false);
   const router = useRouter();
   const { data, status } = useSession();
+  
   const isUser = status === "authenticated";
 
   function handleUser() {
