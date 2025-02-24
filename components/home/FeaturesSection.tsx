@@ -23,7 +23,7 @@ const features = [
 export function FeaturesSection() {
   return (
     <div className="pt-40 px-4 bg-neutral-100">
-      <h2 className="text-3xl md:text-4xl font-semibold text-center mb-12 text-black dark:text-white">
+      <h2 className="text-2xl md:text-4xl font-semibold text-center mb-12 text-black dark:text-white">
         Powerful Features for Creators
       </h2>
       <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
