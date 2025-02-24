@@ -5,7 +5,8 @@ import { z } from "zod";
 import bcrypt from "bcrypt";
 import { sendOTP } from "@/helpers/sendOTP";
 
-export default async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
+
   if (req.method !== "POST") {
     return NextResponse.json(
       { success: false, message: "Method not allowed" },
@@ -43,10 +44,12 @@ export default async function POST(req: NextRequest) {
       );
     }
 
-    const existEmail = await User.find({
+    const existEmail = await User.findOne({
       email: parsedBody.data.email,
     });
 
+    console.log('Email',existEmail);
+    
     if (existEmail) {
       return NextResponse.json(
         { success: false, message: "User already exists with this Email" },

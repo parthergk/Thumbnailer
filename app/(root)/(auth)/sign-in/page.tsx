@@ -5,24 +5,14 @@ import React, { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
+import {Form, FormField, FormItem, FormLabel, FormControl, FormMessage,} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 
-// Define form validation schema using Zod
 const formSchema = z.object({
-  identifier: z.string().nonempty("Username or Email is required"),
-  password: z
-    .string({ required_error: "Password is required" })
-    .min(6, "Password must be at least 6 characters"),
+  email: z.string().nonempty("Email is required"),
+  password: z.string({ required_error: "Password is required" }).min(6, "Password must be at least 6 characters"),
 });
 
 const Sign_in: React.FC = () => {
@@ -35,7 +25,7 @@ const Sign_in: React.FC = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      identifier: "",
+      email: "",
       password: "",
     },
   });
@@ -46,10 +36,10 @@ const Sign_in: React.FC = () => {
     
     try {
       const callbackUrl =  searchParams?.get("callbackUrl") ?? "/" ;
-
+      
       const result = await signIn("credentials", {
         redirect: false,
-        identifier: values.identifier, 
+        email: values.email, 
         password: values.password,     
         callbackUrl,
       });
@@ -60,7 +50,7 @@ const Sign_in: React.FC = () => {
         setFeedback("Sign Up Successfully");
         form.reset();
 
-        if (result.url || callbackUrl) {
+        if (callbackUrl) {
           router.replace(result.url || callbackUrl);
       }
       }
@@ -76,14 +66,13 @@ const Sign_in: React.FC = () => {
         <h2 className="text-black text-2xl font-bold text-center mb-6">Sign In</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Username/Email Field */}
             <FormField
               control={form.control}
-              name="identifier"
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="block text-sm font-medium text-gray-700">
-                    Username or Email
+                    Email
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -96,7 +85,6 @@ const Sign_in: React.FC = () => {
               )}
             />
 
-            {/* Password Field */}
             <FormField
               control={form.control}
               name="password"
@@ -117,7 +105,6 @@ const Sign_in: React.FC = () => {
               )}
             />
 
-            {/* Submit Button */}
             <Button
               type="submit"
               disabled={form.formState.isSubmitting}
@@ -128,11 +115,9 @@ const Sign_in: React.FC = () => {
           </form>
         </Form>
 
-        {/* Error Message */}
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
         {feedback && <p className="text-green-500 text-sm mt-4">{feedback}</p>}
 
-        {/* Sign Up Redirect */}
         <div className="text-black text-sm mt-4 text-center">
           Don&apos;t have an account?{" "}
           <span className="inline font-medium cursor-pointer underline" onClick={()=> router.replace('/sign-up')}>

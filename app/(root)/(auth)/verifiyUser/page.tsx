@@ -1,6 +1,5 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import React, { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +16,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 
-// Define form validation schema using Zod
 const formSchema = z.object({
     code: z.string().nonempty("Verification code is required").min(4, "Verification code must be at least 4 digits"),
   });
@@ -30,7 +28,6 @@ const Sign_in: React.FC = () => {
   const username = searchParams?.get('username');
   const [feedback, setFeedback] = useState('');
   
-  // React Hook Form setup
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,13 +35,12 @@ const Sign_in: React.FC = () => {
     },
   });
   
-  // Form submit handler
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setError(null);
     setFeedback('');
     
     try {
-      const result = await fetch('/api/verify', {
+      const result = await fetch('/api/auth/verify', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code: values.code, username }), // Send code as object
@@ -73,7 +69,6 @@ const Sign_in: React.FC = () => {
         <h2 className="text-black text-2xl font-bold text-center mb-6">Email Verification</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Username/Email Field */}
             <FormField
               control={form.control}
               name="code"
@@ -93,7 +88,6 @@ const Sign_in: React.FC = () => {
               )}
             />
 
-            {/* Submit Button */}
             <Button
               type="submit"
               disabled={form.formState.isSubmitting}
@@ -104,7 +98,6 @@ const Sign_in: React.FC = () => {
           </form>
         </Form>
 
-        {/* Error Message */}
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
         {feedback && <p className="text-green-500 text-sm mt-4">{feedback}</p>}
       </div>

@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import FormFieldCp from "@/components/FormField";
 import { useRouter } from "next/navigation";
 
-// Define validation schema using Zod
 const formSchema = z.object({
   name: z.string().nonempty("Name is required"),
   username: z.string().nonempty("Username is required"),
@@ -47,11 +46,11 @@ const Page: React.FC = () => {
     setFeedback("");
 
     try {
-      const response = await fetch("/api/sign-up", {
+      const response = await fetch("/api/auth/sign-up", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
-      });
+      });      
 
       if (response.ok) {
         const result = await response.json();
@@ -61,7 +60,7 @@ const Page: React.FC = () => {
             "Account created successfully! Please check your email to verify your account."
           );
 
-          form.reset(); // Reset the form upon success
+          form.reset();
           
           const queryParams = new URLSearchParams({ username: result.username }).toString();
           const url = `/verifiyUser?${queryParams}`;
