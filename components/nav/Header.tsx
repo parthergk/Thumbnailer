@@ -24,13 +24,13 @@ const Header: React.FC = () => {
   }
 
   return (
-    <header className="w-full border-b border-gray-200 dark:border-gray-500 bg-white dark:bg-neutral-900 fixed z-20">
+    <header className="w-full border-b border-gray-200 dark:border-gray-500 bg-white dark:bg-neutral-950 fixed z-20">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-black">✱</span>
-              <span className="text-base md:text-xl font-semibold text-black">
+            <a href="/" className="flex items-center space-x-2 text-black dark:text-white">
+              <span className="text-2xl font-bold ">✱</span>
+              <span className="text-base md:text-xl font-semibold">
                 Thumblyzer
               </span>
             </a>
