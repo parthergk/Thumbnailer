@@ -4,6 +4,7 @@ import { useState } from "react";
 import UserDetial from "./UserDetial";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { ThemeToggle } from "../ThemeToggle";
 
 const Header: React.FC = () => {
   const [showDetail, setShowDetail] = useState(false);
@@ -23,18 +24,19 @@ const Header: React.FC = () => {
   }
 
   return (
-    <header className="w-full border-b border-gray-200 bg-white fixed z-20">
+    <header className="w-full border-b border-gray-200 dark:border-gray-500 bg-white dark:bg-neutral-950 fixed z-20">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-black">✱</span>
-              <span className="text-base md:text-xl font-semibold text-black">
+            <a href="/" className="flex items-center space-x-2 text-black dark:text-white">
+              <span className="text-2xl font-bold ">✱</span>
+              <span className="text-base md:text-xl font-semibold">
                 Thumblyzer
               </span>
             </a>
           </div>
           <div className="flex items-center space-x-4">
+          <ThemeToggle/>
             <button
               className="p-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200"
               aria-label="Toggle User Menu"

@@ -34,11 +34,11 @@ export function HeroSection() {
           </button>
         </div>
   
-        <h1 className="mt-6 text-2xl md:text-4xl lg:text-8xl font-semibold mx-auto text-center z-10 text-black dark:text-white tracking-tight">
+        <h1 className="mt-6 text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-semibold mx-auto text-center z-10 text-black dark:text-white tracking-tight">
           Analyze YouTube Thumbnails <br /> and Design Like a Pro!
         </h1>
   
-        <p className="text-center mt-8 text-base md:text-xl text-muted dark:text-muted-dark max-w-[22rem] md:max-w-3xl mx-auto z-10 text-neutral-500 dark:text-white">
+        <p className=" text-center mt-8 text-base sm:text-xl text-muted dark:text-muted-dark max-w-[22rem] sm:max-w-[32rem] md:max-w-3xl mx-auto z-10 text-neutral-500 dark:text-white">
             Unleash your creativity! Our tool analyzes font styles, colors, and
             layouts of existing YouTube thumbnails, giving you the insights and
             inspiration to create stunning thumbnails.
