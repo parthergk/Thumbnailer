@@ -9,7 +9,7 @@ export const FooterImage = () => {
           {/* Image with improved gradient and object positioning */}
           <div className="relative">
             <Image
-              src="/img.jpg"
+              src="/collage.jpg"
               alt="YouTube Thumbnail Analyzer Demo"
               width={1200}
               height={630}
