@@ -38,7 +38,7 @@ export function HeroSection() {
           Analyze YouTube Thumbnails <br /> and Design Like a Pro!
         </h1>
   
-        <p className=" text-center mt-8 text-base sm:text-xl text-muted dark:text-muted-dark max-w-[22rem] sm:max-w-[32rem] md:max-w-3xl mx-auto z-10 text-neutral-500 dark:text-white">
+        <p className=" text-center mt-8 text-base sm:text-xl text-muted dark:text-muted-dark max-w-[22rem] sm:max-w-[32rem] md:max-w-3xl mx-auto z-10 text-neutral-500 dark:text-[#d4d4d4]">
             Unleash your creativity! Our tool analyzes font styles, colors, and
             layouts of existing YouTube thumbnails, giving you the insights and
             inspiration to create stunning thumbnails.
