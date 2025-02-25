@@ -34,8 +34,8 @@ const Font: React.FC<FontProps> = ({ data }) => {
         <div className='text-center border py-2 rounded-md h-9'>ANALYZING...</div>
         {Array.from({ length: 4 }).map((_, index) => (
           <div key={index} className="flex flex-col">
-            <span className="h-2 bg-gray-200 rounded-lg w-8"></span>
-            <div className="flex gap-2 bg-gray-100 mt-1">
+            <span className="h-2 bg-gray-200 dark:bg-neutral-800 rounded-lg w-8"></span>
+            <div className="flex gap-2 bg-gray-100 dark:bg-neutral-900 mt-1">
               <div className="h-8"></div>
             </div>
           </div>
