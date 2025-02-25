@@ -40,8 +40,13 @@ const UserDetial: React.FC<UserDetailProps> = ({ isUser, data }) => {
               <span>{data?.email || "N/A"}</span>
             </div>
           </div>
-          <div className="pt-2">
-            <Button className="w-full" onClick={()=> signOut()}>Sign Out</Button>
+          <div className="pt-2 flex flex-col justify-center items-center space-y-4">
+            <Button className="w-full">
+              <a href="/saved-thumbnails">View Saved Thumbnails</a>
+            </Button>
+            <Button className="w-full" onClick={() => signOut()}>
+              Sign Out
+            </Button>
           </div>
         </div>
       </CardContent>

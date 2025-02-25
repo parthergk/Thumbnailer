@@ -19,7 +19,7 @@ const ThumbnailFetcher = () => {
       setThumbnails(localThumbnail);
     } catch (error) {
       console.error("Failed to parse sessionStorage data", error);
-      setThumbnails([]); // Reset to an empty array on failure
+      setThumbnails([]); 
     }
   }, []);
 
@@ -67,7 +67,6 @@ const ThumbnailFetcher = () => {
       link.click();
       document.body.removeChild(link);
   
-      // Revoke the blob URL to free up memory
       URL.revokeObjectURL(blobUrl);
     } catch (error) {
       console.error("Error downloading image:", error);

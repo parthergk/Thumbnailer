@@ -72,7 +72,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "User ID not found" }, { status: 400 });
     }
 
-    const thumbnails = await Thumbnail.find({ userId });
+    const thumbnails = await Thumbnail.find({ user:userId });
 
     if (thumbnails.length === 0) {
       return NextResponse.json({ message: "No Thumbnails" }, { status: 404 });
