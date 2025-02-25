@@ -54,16 +54,26 @@ const ThumbnailFetcher = () => {
     sessionStorage.setItem('img', JSON.stringify(thumbnails));
   },[thumbnails])
 
-  const downloadThumbnail = (thumbnailUrl: string): void => {
-    const link = document.createElement("a");
-    link.href = thumbnailUrl;
-    link.download = 'downloaded-image.jpg';
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const downloadThumbnail = async (thumbnailUrl: string) => {
+    try {
+      const response = await fetch(thumbnailUrl);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+  
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = "downloaded-thumbnail.jpg";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  
+      // Revoke the blob URL to free up memory
+      URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Error downloading image:", error);
+    }
   };
+  
 
   const analyzeThumbnail = (thumbnailUrl: string): void => {
     const queryParams = new URLSearchParams({ thumbnailUrl }).toString();
