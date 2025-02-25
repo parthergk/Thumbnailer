@@ -79,8 +79,8 @@ const Page: React.FC = () => {
 
   return (
     <div className="mt-16 flex justify-center w-full">
-      <div className="mt-4 w-full max-w-xs md:max-w-sm h-full max-h-min bg-white shadow-md rounded-lg p-6 border">
-        <h2 className="text-black text-2xl font-bold text-center mb-6">
+      <div className="mt-4 w-full max-w-xs md:max-w-sm h-full max-h-min bg-white dark:bg-neutral-900 shadow-md rounded-lg p-6 border">
+        <h2 className="text-black dark:text-white text-2xl font-bold text-center mb-6">
           Sign Up
         </h2>
         <Form {...form}>
@@ -92,7 +92,7 @@ const Page: React.FC = () => {
             <Button
               type="submit"
               disabled={form.formState.isSubmitting}
-              className="w-full text-white font-medium py-2 px-4 rounded-md"
+              className="w-full text-white dark:text-neutral-950 font-medium py-2 px-4 rounded-md"
             >
               {form.formState.isSubmitting ? "Submitting..." : "Sign Up"}
             </Button>
@@ -103,7 +103,7 @@ const Page: React.FC = () => {
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
         {feedback && <p className="text-green-500 text-sm mt-4">{feedback}</p>}
 
-        <div className="text-black text-sm mt-4 text-center">
+        <div className="text-black dark:text-neutral-400 text-sm mt-4 text-center">
           Already have an account?{" "}
           <span
             className="inline font-medium cursor-pointer underline"

@@ -29,8 +29,8 @@ const LeftSideBar: React.FC = () => {
                     <button
                         key={item.name}
                         onClick={() => handleClick(item.name)}
-                        className={`flex flex-col md:flex-row items-center gap-1 lg:gap-3 p-2 rounded-lg text-left text-black font-medium
-                            ${activeItem === item.name ? 'bg-gray-200 ' : 'hover:bg-gray-100'}
+                        className={`flex flex-col md:flex-row items-center gap-1 lg:gap-3 p-2 rounded-lg text-left text-black dark:text-white font-medium
+                            ${activeItem === item.name ? 'bg-neutral-200 dark:bg-neutral-800' : 'hover:bg-neutral-100 dark:hover:bg-neutral-700'}
                         `}
                     >
                         {item.icon}

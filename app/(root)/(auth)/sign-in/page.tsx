@@ -62,8 +62,8 @@ const Sign_in: React.FC = () => {
 
   return (
     <div className="mt-16 flex justify-center w-full">
-      <div className="mt-24 md:mt-16 w-full max-w-xs md:max-w-sm h-full max-h-min bg-white shadow-md rounded-lg p-6 border">
-        <h2 className="text-black text-2xl font-bold text-center mb-6">Sign In</h2>
+      <div className="mt-24 md:mt-16 w-full max-w-xs md:max-w-sm h-full max-h-min bg-white dark:bg-neutral-900 shadow-md rounded-lg p-6 border">
+        <h2 className="text-black dark:text-white text-2xl font-bold text-center mb-6">Sign In</h2>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
@@ -71,13 +71,13 @@ const Sign_in: React.FC = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="block text-sm font-medium text-gray-700">
+                  <FormLabel className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
                     Email
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      className="text-black outline-none mt-1 block w-full rounded-md shadow-sm sm:text-sm"
+                      className="text-black dark:text-neutral-300 dark:bg-transparent outline-none mt-1 block w-full rounded-md shadow-sm sm:text-sm"
                     />
                   </FormControl>
                   <FormMessage className="text-red-500 text-sm mt-1" />
@@ -90,14 +90,14 @@ const Sign_in: React.FC = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="block text-sm font-medium text-gray-700">
+                  <FormLabel className="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
                     Password
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       type="password"
-                      className=" text-black outline-none mt-1 block w-full rounded-md shadow-sm sm:text-sm"
+                      className=" text-black dark:text-neutral-300 dark:bg-transparent outline-none mt-1 block w-full rounded-md shadow-sm sm:text-sm"
                     />
                   </FormControl>
                   <FormMessage className="text-red-500 text-sm mt-1" />
@@ -108,7 +108,7 @@ const Sign_in: React.FC = () => {
             <Button
               type="submit"
               disabled={form.formState.isSubmitting}
-              className="w-full text-white font-medium py-2 px-4 rounded-md"
+              className="w-full text-white dark:text-neutral-950 font-medium py-2 px-4 rounded-md"
             >
               {form.formState.isSubmitting ? "Submitting..." : "Sign In"}
             </Button>
@@ -118,7 +118,7 @@ const Sign_in: React.FC = () => {
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
         {feedback && <p className="text-green-500 text-sm mt-4">{feedback}</p>}
 
-        <div className="text-black text-sm mt-4 text-center">
+        <div className="text-black dark:text-neutral-400 text-sm mt-4 text-center">
           Don&apos;t have an account?{" "}
           <span className="inline font-medium cursor-pointer underline" onClick={()=> router.replace('/sign-up')}>
             Sign Up
