@@ -8,6 +8,9 @@ import Image from "next/image";
 
 const SavedThumbnails = () => {
   const [thumbnails, setThumbnails] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null); // Backend message
 
   useEffect(() => {
     const fetchThumbnails = async () => {
@@ -15,11 +18,20 @@ const SavedThumbnails = () => {
         const response = await fetch("/api/thumbnail");
         const data = await response.json();
 
+        if (data.message) {
+          setMessage(data.message); // Store backend message if available
+        }
+
         if (data.thumbnails && Array.isArray(data.thumbnails)) {
           setThumbnails(data.thumbnails.map((item: { img: string }) => item.img));
+        } else {
+          setMessage("No thumbnails found.");
         }
       } catch (error) {
         console.error("Error fetching backend thumbnails:", error);
+        setError("Failed to load thumbnails. Please try again.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -42,6 +54,7 @@ const SavedThumbnails = () => {
       URL.revokeObjectURL(blobUrl);
     } catch (error) {
       console.error("Error downloading image:", error);
+      setError("Failed to download image. Please try again.");
     }
   };
 
@@ -57,8 +70,12 @@ const SavedThumbnails = () => {
 
       <Card className="w-full max-w-4xl border-none">
         <CardContent>
-          {thumbnails.length === 0 ? (
-            <p className="text-center text-gray-500">No saved thumbnails found.</p>
+          {loading ? (
+            <p className="text-center text-gray-500">Loading thumbnails...</p>
+          ) : error ? (
+            <p className="text-center text-red-500">{error}</p>
+          ) : thumbnails.length === 0 ? (
+            <p className="text-center text-gray-500">{message || "No saved thumbnails found."}</p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-h-[400px] overflow-y-scroll scrollbar-thin pb-24">
               {thumbnails.map((thumbnailUrl, index) => (
