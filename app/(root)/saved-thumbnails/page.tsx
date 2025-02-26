@@ -10,7 +10,7 @@ const SavedThumbnails = () => {
   const [thumbnails, setThumbnails] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null); // Backend message
+  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchThumbnails = async () => {
@@ -19,7 +19,7 @@ const SavedThumbnails = () => {
         const data = await response.json();
 
         if (data.message) {
-          setMessage(data.message); // Store backend message if available
+          setMessage(data.message);
         }
 
         if (data.thumbnails && Array.isArray(data.thumbnails)) {
@@ -60,7 +60,7 @@ const SavedThumbnails = () => {
 
   return (
     <>
-      <Card className="w-full m-5 p-6 border-none mt-16 flex flex-col items-center">
+      <Card className="w-full m-5 p-6 shadow-none border-none mt-16 flex flex-col items-center">
         <CardHeader className="px-0 sm:px-6">
           <CardTitle className="text-center text-2xl md:text-4xl lg:text-6xl">
             Saved Thumbnails
