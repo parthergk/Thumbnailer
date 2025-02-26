@@ -6,7 +6,7 @@ export const FooterImage = () => {
   return (
     <div className="mb-16 mx-auto max-w-10xl px-4">
         <div className="relative rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
-          {/* Image with improved gradient and object positioning */}
+
           <div className="relative">
             <Image
               src="/collage.jpg"
@@ -16,11 +16,9 @@ export const FooterImage = () => {
               className="w-full h-[500px] object-cover brightness-75 contrast-125 transition-all duration-300 hover:brightness-90"
             />
 
-            {/* Gradient overlay with improved visibility */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20 z-10" />
           </div>
 
-          {/* Content Overlay */}
           <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-2 md:px-4">
             <h1 className="text-2xl md:text-4xl lg:text-8xl font-extrabold text-white mb-4 leading-tight">
               Analyze YouTube Thumbnails in Seconds
