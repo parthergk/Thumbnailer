@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
     username: z.string(),
     email: z.string(),
     password: z.string(),
+    provider: z.string()
   });
 
   const parsedBody = requiredBody.safeParse(await req.json());
@@ -68,6 +69,7 @@ export async function POST(req: NextRequest) {
       password: hashPassword,
       verifyCode: verificationCode,
       isVerified: false,
+      provider: 'credentials'
     });
 
     const emailResponse = await sendOTP(
