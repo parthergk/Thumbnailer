@@ -8,6 +8,7 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import FormFieldCp from "@/components/FormField";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const formSchema = z.object({
   name: z.string().nonempty("Name is required"),
@@ -50,19 +51,21 @@ const Page: React.FC = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
-      });      
+      });
 
       if (response.ok) {
         const result = await response.json();
-        
+
         if (result.success) {
           setFeedback(
             "Account created successfully! Please check your email to verify your account."
           );
 
           form.reset();
-          
-          const queryParams = new URLSearchParams({ username: result.username }).toString();
+
+          const queryParams = new URLSearchParams({
+            username: result.username,
+          }).toString();
           const url = `/verifiyUser?${queryParams}`;
           router.replace(url);
         } else {
@@ -99,6 +102,18 @@ const Page: React.FC = () => {
           </form>
         </Form>
 
+        <div className=" w-full text-center my-2 flex justify-center items-center">
+          <p className=" h-px w-full bg-neutral-200"></p>
+          <span className=" mx-2">Or</span>
+          <p className=" h-px w-full bg-neutral-200"></p>
+        </div>
+        <Button
+          type="submit"
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          className="w-full text-white dark:text-neutral-950 font-medium py-2 px-4 rounded-md"
+        >
+          Sign Up with Google
+        </Button>
         {/* Feedback/Error Messages */}
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
         {feedback && <p className="text-green-500 text-sm mt-4">{feedback}</p>}

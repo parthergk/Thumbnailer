@@ -123,17 +123,17 @@ const Sign_in: React.FC = () => {
             </Button>
           </form>
         </Form>
-
-        <div className=" w-full flex">
-          <p className=" w-full border-b"></p>or
-          <p className=" w-full border-b"></p>
+        <div className=" w-full text-center my-2 flex justify-center items-center">
+          <p className=" h-px w-full bg-neutral-200"></p>
+          <span className=" mx-2">Or</span>
+          <p className=" h-px w-full bg-neutral-200"></p>
         </div>
         <Button
           type="submit"
           onClick={() => signIn("google", { callbackUrl: "/" })}
           className="w-full text-white dark:text-neutral-950 font-medium py-2 px-4 rounded-md"
         >
-          Login with Google
+          Sign In with Google
         </Button>
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
         {feedback && <p className="text-green-500 text-sm mt-4">{feedback}</p>}
