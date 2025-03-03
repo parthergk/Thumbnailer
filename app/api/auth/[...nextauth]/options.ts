@@ -2,6 +2,7 @@ import User from "@/database/models/userModel";
 import connectDB from "@/lib/connection";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
@@ -55,9 +56,37 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     //google provider 
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret:process.env.GOOGLE_CLIENT_SECRET as string
+    })
   ],
 
   callbacks: {
+    async signIn({ user, account}) {
+      if (account?.provider === "google") {
+        await connectDB();
+        try {
+          let existingUser = await User.findOne({ email: user.email });
+
+          if (!existingUser) {
+            existingUser = await User.create({
+              email: user.email,
+              name: user.name,
+              provider: "google",
+              isVerified: true,
+            });
+          }
+
+          user._id = existingUser._id;
+        } catch (error) {
+          console.error("Google sign-in error:", error);
+          return false;
+        }
+      }
+      return true;
+    },
+
     async session({ session, token }) {
       if (session) {
         session.user._id = token._id;

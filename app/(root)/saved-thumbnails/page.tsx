@@ -59,8 +59,8 @@ const SavedThumbnails = () => {
   };
 
   return (
-    <>
-      <Card className="w-full m-5 p-6 shadow-none border-none mt-16 flex flex-col items-center">
+    <div className=" h-screen">
+      <Card className="w-full m-5 shadow-none border-none mt-16 flex flex-col items-center">
         <CardHeader className="px-0 sm:px-6">
           <CardTitle className="text-center text-2xl md:text-4xl lg:text-6xl">
             Saved Thumbnails
@@ -68,7 +68,7 @@ const SavedThumbnails = () => {
         </CardHeader>
       </Card>
 
-      <Card className="w-full max-w-4xl border-none">
+      <Card className="w-full border-none">
         <CardContent>
           {loading ? (
             <p className="text-center text-gray-500">Loading thumbnails...</p>
@@ -109,7 +109,7 @@ const SavedThumbnails = () => {
           )}
         </CardContent>
       </Card>
-    </>
+    </div>
   );
 };
 
