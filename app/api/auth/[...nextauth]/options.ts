@@ -55,27 +55,29 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
-    //google provider 
+    //google provider
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret:process.env.GOOGLE_CLIENT_SECRET as string
-    })
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
   ],
 
   callbacks: {
-    async signIn({ user, account}) {
+    async signIn({ user, account }) {
       if (account?.provider === "google") {
         await connectDB();
         try {
           let existingUser = await User.findOne({ email: user.email });
 
           if (!existingUser) {
-            existingUser = await User.create({
+            const newUserData = {
               email: user.email,
               name: user.name,
               provider: "google",
               isVerified: true,
-            });
+            };
+
+            existingUser = await User.create(newUserData);
           }
 
           user._id = existingUser._id;
@@ -107,6 +109,6 @@ export const authOptions: NextAuthOptions = {
 
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: '/sign-in'
-  }
+    signIn: "/sign-in",
+  },
 };
