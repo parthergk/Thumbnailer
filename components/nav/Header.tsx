@@ -26,21 +26,21 @@ const Header: React.FC = () => {
 
   return (
     <header className="w-full bg-white dark:bg-neutral-950 fixed z-20">
-      <div className="w-full mx-auto px-4 sm:px-5">
+      <div className="w-full mx-auto py-2 px-4 sm:px-6">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <a
               href="/"
               className="flex items-center space-x-2 text-black dark:text-white"
             >
-              <span className="text-lg md:text-2xl ">
-                Thamzr Ai
+              <span className="text-lg md:text-xl font-semibold ">
+                Thzr Ai
               </span>
             </a>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-4">
             <button
-              className=" px-3 py-0.5 sm:py-[3px] rounded-sm shadow-md bg-white text-neutral-800 dark:bg-neutral-800 dark:text-white border border-neutral-200 dark:border-neutral-700 hover:shadow-lg hover:bg-neutral-50/60 hover:scale-105"
+              className=" px-3 py-0.5 sm:py-[3px] rounded-sm shadow-md bg-white text-neutral-800 dark:bg-neutral-800 dark:text-white border border-neutral-200 dark:border-neutral-700 hover:shadow-lg hover:bg-neutral-50/60 transition-all duration-200 hover:scale-105"
               aria-label="Toggle User Menu"
               aria-expanded={isUser}
               onClick={handleUser}
