@@ -10,8 +10,9 @@ const Header: React.FC = () => {
   const [showDetail, setShowDetail] = useState(false);
   const router = useRouter();
   const { data, status } = useSession();
-  
+
   const isUser = status === "authenticated";
+  // const isUser = true;
 
   function handleUser() {
     if (status === "authenticated") {
@@ -24,32 +25,30 @@ const Header: React.FC = () => {
   }
 
   return (
-    <header className="w-full border-b border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 fixed z-20">
-      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="w-full bg-white dark:bg-neutral-950 fixed z-20">
+      <div className="w-full mx-auto px-4 sm:px-5">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2 text-black dark:text-white">
-              <span className="text-2xl font-bold ">✱</span>
-              <span className="text-base md:text-xl font-semibold">
-                Thumblyzer
+            <a
+              href="/"
+              className="flex items-center space-x-2 text-black dark:text-white"
+            >
+              <span className="text-lg md:text-2xl ">
+                Thamzr Ai
               </span>
             </a>
           </div>
-          <div className="flex items-center space-x-4">
-          <ThemeToggle/>
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <button
-              className="p-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200"
+              className=" px-3 py-0.5 sm:py-[3px] rounded-sm shadow-md bg-white text-neutral-800 dark:bg-neutral-800 dark:text-white border border-neutral-200 dark:border-neutral-700 hover:shadow-lg hover:bg-neutral-50/60 hover:scale-105"
               aria-label="Toggle User Menu"
               aria-expanded={isUser}
               onClick={handleUser}
             >
-              {isUser ? (
-                <User className="h-5 w-5" />
-              ) : (
-                <LogIn className="h-5 w-5" />
-              )}
+              {isUser ? <User className="h-5 w-5 my-0.5 sm:my-0 sm:h-6 sm:w-6" /> : <span className=" text-sm">Log in</span>}
             </button>
             <UserDetial isUser={showDetail} data={data?.user} />
+            <ThemeToggle />
           </div>
         </div>
       </div>
