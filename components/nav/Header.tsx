@@ -25,7 +25,7 @@ const Header: React.FC = () => {
   }
 
   return (
-    <header className="w-full bg-white dark:bg-neutral-950 fixed z-20">
+    <header className="w-full bg-white dark:bg-neutral-900 fixed z-20">
       <div className="w-full mx-auto py-2 px-4 sm:px-6">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">

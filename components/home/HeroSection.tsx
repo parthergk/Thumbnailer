@@ -34,20 +34,20 @@ export function HeroSection() {
 
       <h1 className="mt-6 sm:mt-8 text-2xl sm:text-4xl md:text-6xl font-semibold mx-auto text-center z-10 text-neutral-800 dark:text-white tracking-tight">
         Analyze YouTube Thumbnails <br />{" "}
-        <span className=" text-neutral-600"> and Design Like a Pro! </span>
+        <span className=" text-neutral-600 dark:text-white"> and Design Like a Pro! </span>
       </h1>
 
       <p className=" leading-relaxed text-center mt-4 sm:mt-8 text-xs sm:text-base text-muted dark:text-muted-dark max-w-[18rem] sm:max-w-[32rem] md:max-w-2xl mx-auto z-10 text-neutral-500 dark:text-[#d4d4d4]">
         Our tool analyzes font{" "}
-        <span className=" bg-white shadow-md py-0.5 px-2 rounded-sm cursor-pointer transition-all duration-300 hover:shadow-green-400">
+        <span className=" bg-white border dark:bg-neutral-800 dark:border-neutral-700  shadow-md py-0.5 px-2 rounded-sm cursor-pointer transition-all duration-300 hover:shadow-green-400">
           styles
         </span>
         {" "},{" "}
-        <span className=" bg-white shadow-md py-0.5 px-2 rounded-sm cursor-pointer transition-all duration-300 hover:shadow-orange-400">
+        <span className=" bg-white border dark:bg-neutral-800 dark:border-neutral-700  shadow-md py-0.5 px-2 rounded-sm cursor-pointer transition-all duration-300 hover:shadow-orange-400">
           colors
         </span>
         {" "}, and{" "}
-        <span className=" bg-white shadow-md py-0.5 px-2 rounded-sm cursor-pointer transition-all duration-300 hover:shadow-blue-400">
+        <span className=" bg-white border dark:bg-neutral-800 dark:border-neutral-700  shadow-md py-0.5 px-2 rounded-sm cursor-pointer transition-all duration-300 hover:shadow-blue-400">
           layouts
         </span>{" "}
         of existing YouTube thumbnails, giving you the insights and inspiration
@@ -56,13 +56,13 @@ export function HeroSection() {
 
       <div className="flex justify-center items-center mt-8 space-x-5">
         <Link href="/dashboard" className="group">
-          <button className="transition-all text-xs sm:text-sm py-1.5 px-2 sm:px-3 shadow-md dark:bg-neutral-900 bg-white text-neutral-900 dark:text-white border rounded-md hover:bg-neutral-50 dark:hover:bg-neutral-800 flex items-center gap-2 hover:scale-105 duration-150">
+          <button className="transition-all text-xs sm:text-sm py-1.5 px-2 sm:px-3 shadow-md dark:bg-neutral-800 dark:border-neutral-700/50 bg-white text-neutral-900 dark:text-white border rounded-md hover:bg-neutral-50 dark:hover:bg-neutral-800 flex items-center gap-2 hover:scale-105 duration-150">
             How it work
             <Youtube className=" w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </Link>
         <Link href="/dashboard" className="group">
-          <button className=" py-1.5 px-2 sm:px-3 text-xs sm:text-sm shadow-md bg-neutral-900 dark:bg-white dark:text-black text-white border border-neutral-900 rounded-md hover:bg-neutral-800 dark:hover:bg-neutral-200 flex items-center gap-2 hover:scale-105 transition-all duration-150">
+          <button className=" py-1.5 px-2 sm:px-3 text-xs sm:text-sm shadow-md bg-neutral-800 dark:bg-white dark:text-black text-white border border-neutral-900 rounded-md hover:bg-neutral-800 dark:hover:bg-neutral-200 flex items-center gap-2 hover:scale-105 transition-all duration-150">
             Get start free
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </button>
