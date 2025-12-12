@@ -6,7 +6,7 @@ interface FeatureCardProps {
 
 export function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
-    <div className="cursor-pointer group p-4 rounded-sm bg-neutral-100  dark:bg-neutral-800 shadow-sm border border-neutral-300 dark:border-neutral-700 backdrop-blur-sm transition-all duration-300 ease-in-out hover:bg-white hover:shadow-md hover:scale-105">
+    <div className="cursor-pointer group px-4 py-8 rounded-sm text-neutral-900 bg-neutral-50 dark:bg-neutral-800/50 dark:shadow-neutral-950 shadow-sm border border-neutral-300/70 dark:border-neutral-700/60 backdrop-blur-sm transition-all duration-300 ease-in-out hover:bg-white hover:shadow-md hover:scale-105">
       <div className=" mt-4 border-l border-neutral-300 dark:border-neutral-600 px-4">
         <div className=" flex gap-3 items-center">
           <span>{icon}</span>
