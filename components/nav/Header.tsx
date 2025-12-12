@@ -40,12 +40,12 @@ const Header: React.FC = () => {
           </div>
           <div className="flex items-center space-x-2 sm:space-x-4">
             <button
-              className=" px-3 py-0.5 sm:py-[3px] rounded-sm shadow-md bg-white text-neutral-800 dark:bg-neutral-800 dark:text-white border border-neutral-200 dark:border-neutral-700 hover:shadow-lg hover:bg-neutral-50/60 transition-all duration-200 hover:scale-105"
+              className=" px-3 py-0.5 sm:py-[3px] rounded-sm shadow-md bg-white text-neutral-800 dark:bg-neutral-800 dark:text-white border border-neutral-200 dark:border-neutral-700/60 hover:shadow-lg hover:bg-neutral-50/60 transition-all duration-200 hover:scale-105"
               aria-label="Toggle User Menu"
               aria-expanded={isUser}
               onClick={handleUser}
             >
-              {isUser ? <User className="h-5 w-5 my-0.5 sm:my-0 sm:h-6 sm:w-6" /> : <span className=" text-sm">Log in</span>}
+              {isUser ? <User className="h-5 w-5 my-0.5 sm:my-0 sm:h-6 sm:w-6" /> : <span className=" text-xs sm:text-sm">Log in</span>}
             </button>
             <UserDetial isUser={showDetail} data={data?.user} />
             <ThemeToggle />

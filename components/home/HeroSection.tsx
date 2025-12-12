@@ -4,13 +4,13 @@ import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <div className=" w-full flex flex-col pt-16">
+    <div className="w-full flex flex-col pt-20 relative overflow-hidden">
       <div
         className="flex justify-center"
         style={{ opacity: 1, transform: "none" }}
       >
-        <button className="bg-neutral-50 dark:bg-neutral-700 no-underline group cursor-pointer relative md:shadow-2xl shadow-zinc-900 rounded-full p-px text-[10px] sm:text-xs font-semibold leading-6 text-neutral-700 dark:text-neutral-300 inline-block w-fit mx-auto">
-          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-neutral-50 shadow-md dark:bg-neutral-800 py-0.5 sm:py-1.5 px-4 ring-1 ring-white/10">
+        <button className=" no-underline group cursor-pointer relative inline-block w-fit mx-auto">
+          <div className="relative flex space-x-2 items-center z-10 rounded-full shadow-md p-px text-[10px] sm:text-xs font-semibold leading-6 text-neutral-700 dark:text-neutral-300 bg-neutral-50  dark:bg-neutral-800 py-0.5 sm:py-1.5 px-4 ring-1 ring-white/10">
             <span>Design standout thumbnails effortlessly!</span>
             <svg
               fill="none"
@@ -32,31 +32,37 @@ export function HeroSection() {
         </button>
       </div>
 
-      <h1 className="mt-6 sm:mt-8 text-2xl sm:text-4xl md:text-6xl font-semibold mx-auto text-center z-10 text-neutral-800 dark:text-white tracking-tight">
-        Analyze YouTube Thumbnails <br />{" "}
-        <span className=" text-neutral-600 dark:text-white"> and Design Like a Pro! </span>
+      <h1 className="mt-6 sm:mt-8 text-2xl sm:text-4xl md:text-6xl font-semibold mx-auto text-center z-10 tracking-tight">
+        <span className="text-neutral-800 dark:text-white">
+          Analyze YouTube Thumbnails <br />
+        </span>
+        <span className=" text-neutral-600 dark:text-white/80">
+          and Design Like a Pro!
+        </span>
       </h1>
 
-      <p className=" leading-relaxed text-center mt-4 sm:mt-8 text-xs sm:text-base text-muted dark:text-muted-dark max-w-[18rem] sm:max-w-[32rem] md:max-w-2xl mx-auto z-10 text-neutral-500 dark:text-[#d4d4d4]">
+      <p className=" leading-relaxed text-center mt-4 sm:mt-6 text-xs sm:text-base max-w-[18rem] sm:max-w-[32rem] md:max-w-2xl mx-auto z-10 text-neutral-600 dark:text-neutral-300">
         Our tool analyzes font{" "}
-        <span className=" bg-white border dark:bg-neutral-800 dark:border-neutral-700  shadow-md py-0.5 px-2 rounded-sm cursor-pointer transition-all duration-300 hover:shadow-green-400">
+        <span className="px-2 py-1 shadow-md rounded-sm bg-white/5 border border-white/10 dark:bg-neutral-800 dark:border-neutral-700/60 cursor-pointer transition-all duration-300 hover:shadow-green-400">
           styles
-        </span>
-        {" "},{" "}
-        <span className=" bg-white border dark:bg-neutral-800 dark:border-neutral-700  shadow-md py-0.5 px-2 rounded-sm cursor-pointer transition-all duration-300 hover:shadow-orange-400">
+        </span>{" "}
+        ,{" "}
+        <span className="px-2 py-1 shadow-md rounded-sm bg-white/5 border border-white/10 dark:bg-neutral-800 dark:border-neutral-700/60 cursor-pointer transition-all duration-300 hover:shadow-orange-400">
           colors
-        </span>
-        {" "}, and{" "}
-        <span className=" bg-white border dark:bg-neutral-800 dark:border-neutral-700  shadow-md py-0.5 px-2 rounded-sm cursor-pointer transition-all duration-300 hover:shadow-blue-400">
+        </span>{" "}
+        , and{" "}
+        <span className="px-2 py-1 shadow-md rounded-sm bg-white/5 border border-white/10 dark:bg-neutral-800 dark:border-neutral-700/60 cursor-pointer transition-all duration-300 hover:shadow-blue-400">
           layouts
         </span>{" "}
         of existing YouTube thumbnails, giving you the insights and inspiration
         to create stunning thumbnails.
       </p>
 
-      <div className="flex justify-center items-center mt-8 space-x-5">
+      <div className="flex justify-center items-center mt-10 space-x-4">
         <Link href="/dashboard" className="group">
-          <button className="transition-all text-xs sm:text-sm py-1.5 px-2 sm:px-3 shadow-md dark:bg-neutral-800 dark:border-neutral-700/50 bg-white text-neutral-900 dark:text-white border rounded-md hover:bg-neutral-50 dark:hover:bg-neutral-800 flex items-center gap-2 hover:scale-105 duration-150">
+          <button
+            className="transition-all flex items-center gap-2 px-2 sm:px-3 py-1.5 text-xs sm:text-sm backdrop-blur-sm bg-white/5 border border-white/10  shadow-md rounded-md dark:bg-neutral-800 dark:border-neutral-700/50 text-neutral-900 dark:text-white  hover:bg-neutral-50 dark:hover:bg-neutral-800/80 hover:scale-105 duration-150"
+          >
             How it work
             <Youtube className=" w-5 h-5 sm:w-6 sm:h-6" />
           </button>
