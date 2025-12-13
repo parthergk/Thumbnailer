@@ -32,7 +32,7 @@ export function HeroSection() {
         </button>
       </div>
 
-      <h1 className="mt-6 sm:mt-8 text-2xl sm:text-4xl md:text-6xl font-semibold mx-auto text-center z-10 tracking-tight">
+      <h1 className="mt-6 sm:mt-8 text-[26px] sm:text-4xl md:text-6xl font-semibold mx-auto text-center z-10 tracking-tight">
         <span className="text-neutral-800 dark:text-white">
           Analyze YouTube Thumbnails <br />
         </span>
@@ -43,15 +43,15 @@ export function HeroSection() {
 
       <p className=" leading-relaxed text-center mt-4 sm:mt-6 text-xs sm:text-base max-w-[18rem] sm:max-w-[32rem] md:max-w-2xl mx-auto z-10 text-neutral-600 dark:text-neutral-300">
         Our tool analyzes font{" "}
-        <span className="px-2 py-1 shadow-md rounded-sm bg-white/5 border border-white/10 dark:bg-neutral-800 dark:border-neutral-700/60 dark:shadow-neutral-950 cursor-pointer transition-all duration-300 hover:shadow-green-400">
+        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 shadow-md rounded-sm bg-white/5 border border-white/10 dark:bg-neutral-800 dark:border-neutral-700/60 dark:shadow-neutral-950 cursor-pointer transition-all duration-300 hover:shadow-green-400">
           styles
         </span>{" "}
         ,{" "}
-        <span className="px-2 py-1 shadow-md rounded-sm bg-white/5 border border-white/10 dark:bg-neutral-800 dark:border-neutral-700/60 dark:shadow-neutral-950 cursor-pointer transition-all duration-300 hover:shadow-orange-400">
+        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 shadow-md rounded-sm bg-white/5 border border-white/10 dark:bg-neutral-800 dark:border-neutral-700/60 dark:shadow-neutral-950 cursor-pointer transition-all duration-300 hover:shadow-orange-400">
           colors
         </span>{" "}
         , and{" "}
-        <span className="px-2 py-1 shadow-md rounded-sm bg-white/5 border border-white/10 dark:bg-neutral-800 dark:border-neutral-700/60 dark:shadow-neutral-950 cursor-pointer transition-all duration-300 hover:shadow-blue-400">
+        <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 shadow-md rounded-sm bg-white/5 border border-white/10 dark:bg-neutral-800 dark:border-neutral-700/60 dark:shadow-neutral-950 cursor-pointer transition-all duration-300 hover:shadow-blue-400">
           layouts
         </span>{" "}
         of existing YouTube thumbnails, giving you the insights and inspiration

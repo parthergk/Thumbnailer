@@ -35,7 +35,7 @@ export function FeaturesSection() {
         <h2 className="text-2xl md:text-4xl font-medium mb-8 text-neutral-900 dark:text-white">
           Powerful Features for Creators
         </h2>
-        <div className=" grid grid-rows-2 md:grid-cols-[auto_1fr] gap-4 border-t pt-2 ">
+        <div className=" grid grid-rows-2 md:grid-rows-1 md:grid-cols-[auto_1fr] gap-4 border-t pt-2 ">
           <div className=" w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 md:grid-rows-3 gap-3 px-2 sm:px-4 py-4 max-w-md border-r">
             {features.map((feature, index) => (
               <FeatureCard key={index} {...feature} />
