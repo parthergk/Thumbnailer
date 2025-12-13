@@ -4,7 +4,7 @@ import { HowItWorksSection } from "@/components/home/HowItWorksSection";
 import { BenefitsSection } from "@/components/home/BenefitsSection";
 import { Footer } from "@/components/home/Footer";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
-import { FooterImage } from "@/components/home/FooterImage";
+import  FooterImage  from "@/components/home/FooterImage";
 
 export default function Home() {
   return (

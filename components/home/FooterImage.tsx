@@ -1,48 +1,58 @@
-import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-export const FooterImage = () => {
+import Link from "next/link";
+import { ArrowRight, Youtube } from "lucide-react";
+
+export default function HeroTextOnly() {
   return (
-    <div className="mb-16 mx-auto max-w-10xl px-4">
-        <div className="relative rounded-2xl overflow-hidden shadow-xl border border-neutral-200 dark:border-neutral-800">
+    <section className=" px-6 py-20 sm:py-24">
+      <div
+        className="
+          mx-auto 
+          rounded-md
+           border-neutral-200 dark:border-neutral-800
+          bg-gradient-to-br
+          from-white via-neutral-50 to-white
+          dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950
+          shadow-xl
+          px-6 sm:px-10 lg:px-14
+          py-14 sm:py-20
+          text-center
+        "
+      >
+        {/* HEADING */}
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold leading-tight text-neutral-900 dark:text-white">
+          Analyze Thumbnails
+          <span className="block text-neutral-500 dark:text-neutral-400">
+            with AI in Seconds
+          </span>
+        </h1>
 
-          <div className="relative">
-            <Image
-              src="/collage.jpg"
-              alt="YouTube Thumbnail Analyzer Demo"
-              width={1200}
-              height={630}
-              className="w-full h-[500px] object-cover brightness-75 contrast-125 transition-all duration-300 hover:brightness-90"
-            />
+        {/* DESCRIPTION */}
+        <p className="mt-6 mx-auto max-w-xl text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
+          Stop guessing. Use AI-powered insights to understand what makes
+          thumbnails click — instantly.
+        </p>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20 z-10" />
-          </div>
-
-          <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-2 md:px-4">
-            <h1 className="text-2xl md:text-4xl lg:text-8xl font-extrabold text-white mb-4 leading-tight">
-              Analyze YouTube Thumbnails in Seconds
-            </h1>
-            <p className="text-base md:text-xl text-neutral-200 mb-8 max-w-xl">
-              Manually analyzing thumbnails is time-consuming. Streamline your
-              content strategy with instant, precise insights.
-            </p>
-
-            <div className="flex justify-center items-center space-x-4">
-              <Link href="/dashboard" className="group">
-                <button
-                  className="text-sm font-semibold px-6 py-3 bg-white text-black rounded-full 
-                hover:bg-neutral-100 transition-all duration-300 
-                flex items-center gap-2 shadow-lg group-hover:shadow-xl"
-                >
-                  Get Started for Free
-                  <ArrowRight className="w-5 h-5 text-black group-hover:translate-x-1 transition-transform" />
-                </button>
-              </Link>
-            </div>
-
-          </div>
+        {/* CTA BUTTONS */}
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link href="/dashboard">
+            <button
+              className="
+                flex items-center gap-2
+                rounded-md
+                px-4 py-2
+                text-sm font-medium
+                bg-neutral-900 text-white
+                dark:bg-white dark:text-black
+                shadow-md
+                hover:scale-105 transition
+              "
+            >
+              Get started free
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </Link>
         </div>
       </div>
-  )
+    </section>
+  );
 }
