@@ -1,10 +1,23 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Youtube } from "lucide-react";
 import Image from "next/image";
+import { useRef } from "react";
+import { useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 export function HeroSection() {
+  const scrollRef = useRef(null)
+  const {scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ["start end", "center"]
+  })
+const rotateX = useTransform(scrollYProgress, [0, 1], [24, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
+
   return (
-    <div className="w-full flex flex-col pt-20 relative overflow-hidden">
+    <div ref={scrollRef} className="w-full flex flex-col pt-20 relative overflow-hidden">
       <div
         className="flex justify-center"
         style={{ opacity: 1, transform: "none" }}
@@ -77,7 +90,7 @@ export function HeroSection() {
 
       {/* Demo Preview */}
       <div className="mt-16 mx-auto max-w-10xl px-4">
-        <div className="relative rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800">
+        <motion.div style={{ perspective: 1200, rotateX, scale }} className="relative rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-800">
           <Image
             src="/img.png"
             alt="YouTube Thumbnail Analyzer Demo"
@@ -86,7 +99,7 @@ export function HeroSection() {
             className="w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
