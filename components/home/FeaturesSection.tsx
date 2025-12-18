@@ -1,26 +1,7 @@
 import { Eye, Palette, Layout } from "lucide-react";
 import { FeatureCard } from "./FeatureCard";
-
-const features = [
-  {
-    icon: <Eye className="w-5 h-5 text-neutral-900 dark:text-neutral-300" />,
-    title: "Font Analysis",
-    description:
-      "Identify fonts, sizes, and styles used in successful thumbnails",
-  },
-  {
-    icon: (
-      <Palette className="w-5 h-5 text-neutral-900 dark:text-neutral-300" />
-    ),
-    title: "Color Detection",
-    description: "Extract color palettes and understand color psychology",
-  },
-  {
-    icon: <Layout className="w-5 h-5 text-neutral-900 dark:text-neutral-300" />,
-    title: "Layout Insights",
-    description: "Learn about composition and element placement",
-  },
-];
+import { features } from "../../lib/constant/features.js";
+import Image from "next/image";
 
 export function FeaturesSection() {
   return (
@@ -45,7 +26,35 @@ export function FeaturesSection() {
             <div className=" self-end text-xs sm:text-sm  border shadow-md rounded-sm px-4 py-1.5 text-neutral-900 bg-neutral-50 dark:bg-neutral-800 dark:text-white dark:shadow-neutral-950 ">
               How to design Thumbnails with Ai?
             </div>
-            <div className=" w-full h-[28rem]  max-w-[28rem] shadow-lg dark:shadow-neutral-950 bg-white dark:bg-neutral-900 border dark:border-neutral-800 rounded-md"></div>
+            <div className=" w-full h-[500px] max-w-[500px] shadow-lg dark:shadow-neutral-950 bg-white dark:bg-neutral-900 border dark:border-neutral-800 rounded-md">
+              <div className="px-5 w-full h-full flex justify-center items-center">
+                <div className=" relative">
+                  <div className=" absolute border-t border-neutral-500 w-5 left-[286px] top-5"></div>
+                  <div className=" absolute border-r border-neutral-500  h-10 w-px left-[305px] -top-[19px] "></div>
+                  <div className=" absolute bg-white dark:bg-neutral-800 text-neutral-800 dark:text-white text-sm shadow-lg dark:shadow-neutral-950 px-2 py-0.5 rounded-sm left-[229px] -top-11">
+                    Font Color: #1E1E1E
+                  </div>
+                  <Image
+                    alt="thumbnail"
+                    height={720}
+                    width={1280}
+                    src="/image/thumbnail.jpg"
+                    className=" object-cover"
+                  />
+                  <div className=" absolute bg-white dark:bg-neutral-800 text-neutral-800 dark:text-white text-sm shadow-lg dark:shadow-neutral-950 px-2 py-0.5 rounded-sm -left-14 bottom-28">
+                    Font Size: 24px
+                  </div>
+                  <div className=" absolute border-t border-neutral-500 w-5 bottom-[68px] left-1"></div>
+                  <div className=" absolute border-r border-neutral-500  h-11 w-px bottom-[68px] left-1 "></div>
+                  {/* bg description */}
+                  <div className=" absolute bg-white dark:bg-neutral-800 text-neutral-800 dark:text-white text-sm shadow-lg dark:shadow-neutral-950 px-2 py-0.5 rounded-sm left-40 -bottom-5">
+                    Font Size: 24px
+                  </div>
+                  <div className=" absolute border-t border-neutral-500 w-7 bottom-[100px] left-52"></div>
+                  <div className=" absolute border-r border-neutral-500  h-24 w-px bottom-1 left-52 "></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
