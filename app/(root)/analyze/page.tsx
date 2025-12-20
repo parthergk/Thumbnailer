@@ -129,38 +129,38 @@ const Analyze: React.FC = () => {
     <main className="self-start w-full mt-16 flex dark:bg-neutral-900 border-t">
       <LeftSideBar />
       <div className="w-full px-3 sm:px-5 dark:bg-neutral-900">
-        <CardHeader className=" px-0 md:px-6">
-          <CardTitle>Analyze your thumbnail</CardTitle>
-          <p className="text-sm text-gray-400">
-            Get details about this thumbnail like font, color, background, etc.
+        <div className=" px-0 md:px-6 py-5 space-y-1">
+          <h3 className=" text-neutral-900 dark:text-white text-xl font-semibold">Analytics of your Thumbnail</h3>
+          <p className="text-sm text-neutral-400">
+            Here are the details about this Thumbnail like Font, Color, Background, etc.
           </p>
-        </CardHeader>
-        <CardContent className=" px-0 md:px-6">
+        </div>
+        <div className=" px-0 md:px-6">
           <div className="flex flex-col gap-5">
             {thumbnailUrl ? (
               <>
               <div className="flex flex-col lg:flex-row space-x-0 md:space-x-5 gap-5">
-                <div className=" w-full max-w-[272px] sm:max-w-[400px]">
+                <div className="  w-full max-w-[272px] sm:max-w-[400px]">
                   <Image
                     src={thumbnailUrl}
                     alt="Thumbnail"
                     width={400}
                     height={(400 / 16) * 9}
-                    className="w-full h-auto rounded"
+                    className="w-full h-auto rounded-sm shadow-lg shadow-neutral-500 dark:shadow-neutral-950"
                     loading="lazy"
                   />
                 </div>
                 <div className="h-full w-full max-w-72 sm:max-w-sm max-h-[280px] lg:max-h-[500px] overflow-y-scroll lg:overflow-hidden scrollbar-thin">
-                  <h1 className="text-lg font-semibold">
+                  <h4 className="text-lg font-semibold text-neutral-900 dark:text-white">
                     {detailItem} Analysis
-                  </h1>
-                  {selectedItem ? selectedItem.component : <p>No Data</p>}
+                  </h4>
+                  {selectedItem ? selectedItem.component : <p className=" mt-5 text-center">No Data</p>}
                 </div>
                 </div>
                 <div className=" flex flex-col gap-5 w-full max-w-[272px] sm:max-w-[400px]">
-                  <Button onClick={() => handleSave()} disabled={isSaving}>
+                  <button className="shadow-lg py-1.5 bg-neutral-900 dark:bg-white dark:text-neutral-900 hover:scale-105 dark:hover:shadow-neutral-950 dark:hover:bg-neutral-50 rounded-sm" onClick={() => handleSave()} disabled={isSaving}>
                     {isSaving ? "Saveing Thumbnail" : "Save Thumbnail"}
-                  </Button>
+                  </button>
                   {feedback && (
                     <p className="text-sm text-gray-500">{feedback}</p>
                   )}
@@ -170,7 +170,7 @@ const Analyze: React.FC = () => {
               <p className="text-gray-500">No thumbnail URL provided.</p>
             )}
           </div>
-        </CardContent>
+        </div>
       </div>
     </main>
   );

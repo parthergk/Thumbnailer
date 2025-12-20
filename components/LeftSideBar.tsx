@@ -30,7 +30,7 @@ const LeftSideBar: React.FC = () => {
             key={item.name}
             onClick={() => handleClick(item.name)}
             className={`flex flex-col md:flex-row items-center gap-1 lg:gap-3 p-2 rounded-sm text-left text-black dark:text-white font-medium 
-            ${activeItem === item.name ? "shadow-lg bg-neutral-50 dark:shadow-neutral-950/70 dark:bg-neutral-800" : "hover:bg-neutral-50 hover:shadow-md dark:shadow-neutral-950/70 dark:hover:bg-neutral-700"}`}>
+            ${activeItem === item.name ? "shadow-lg bg-neutral-50 dark:shadow-neutral-950/70 dark:bg-neutral-800" : "hover:bg-neutral-50 hover:shadow-md dark:hover:bg-neutral-800/90"}`}>
             {item.icon}
             <span className="text-sm hidden sm:block">{item.name}</span>
           </button>
