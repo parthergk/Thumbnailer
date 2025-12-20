@@ -126,9 +126,9 @@ const Analyze: React.FC = () => {
   useEffect(() => {}, [data, status]);
 
   return (
-    <main className="self-start w-full mt-16 flex">
+    <main className="self-start w-full mt-16 flex dark:bg-neutral-900 border-t">
       <LeftSideBar />
-      <Card className="w-full px-3 sm:px-5">
+      <div className="w-full px-3 sm:px-5 dark:bg-neutral-900">
         <CardHeader className=" px-0 md:px-6">
           <CardTitle>Analyze your thumbnail</CardTitle>
           <p className="text-sm text-gray-400">
@@ -171,7 +171,7 @@ const Analyze: React.FC = () => {
             )}
           </div>
         </CardContent>
-      </Card>
+      </div>
     </main>
   );
 };

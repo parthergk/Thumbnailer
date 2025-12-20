@@ -90,7 +90,7 @@ const ThumbnailFetcher = () => {
             placeholder="Enter YouTube video URL"
             value={videoUrl}
             onChange={(e) => setVideoUrl(e.target.value)}
-            className=" bg-neutral-50/20 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-600 text-sm sm:text-base w-full max-w-72 sm:max-w-xl focus:outline-none py-1 sm:py-1.5 px-2 rounded-sm"
+            className=" text-neutral-900 bg-neutral-50/20 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-600 text-sm sm:text-base w-full max-w-72 sm:max-w-xl focus:outline-none py-1 sm:py-1.5 px-2 rounded-sm"
           />
           <button
             onClick={fetchThumbnail}
