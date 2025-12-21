@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Pipette } from 'lucide-react';
 import ColorClip from './ColorClip';
+import Field from './Field';
 
 // Define the structure of a single color
 interface ColorProps {
@@ -38,17 +39,16 @@ const Color: React.FC<ColorComponentProps> = ({ data }) => {
       <div className="w-full flex flex-col gap-4 my-3 ">
         {data.map((color, index) => (
           <div key={(color.code,index)} className="flex flex-col">
-            <span className="text-sm">{color.name}</span>
-            <ColorClip color={color.code} />
+            <Field label={color.name} value={color.code} copy/>
           </div>
         ))}
       </div>
 
       <div className="mt-5">
         <div className="flex justify-between">
-          <label className="text-sm font-medium">Custom Color</label>
+          <label className="text-sm text-neutral-700 dark:text-neutral-300">Custom Color</label>
           <button onClick={eyeDropper}>
-            <Pipette className="h-4 w-4" />
+            <Pipette className="h-4 w-4 text-neutral-700 dark:text-white" />
           </button>
         </div>
         <ColorClip color={eyeColor} />

@@ -1,40 +1,49 @@
-"use server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import axios from "axios";
+import { NextResponse } from "next/server";
 
 interface ImageInterface {
   prompt: string;
   img: string;
 }
 
-// Main AI API function
-export async function aiApi({ prompt, img }: ImageInterface): Promise<string> {
+export const runtime = "nodejs";   // IMPORTANT
+export const maxDuration = 60;     // IMPORTANT (Vercel)
+
+export async function POST(req: Request) {
   try {
+    const { prompt, img }: ImageInterface = await req.json();
 
-    const tempFilePath = await convertAndImage(img);
+    const base64Image = await convertAndImage(img);
+    const analysisResult = await analyzeImage(prompt, base64Image);
 
-    const analysisResult = await analyzeImage(prompt, tempFilePath);
-
-    return analysisResult;
+    return NextResponse.json({
+      success: true,
+      data: analysisResult,
+    });
   } catch (error) {
-    console.error("Error in aiApi:", error);
-    throw new Error("Failed to process image and generate content");
+    console.error("Error in analyze-thumbnail API:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to process image and generate content" },
+      { status: 500 }
+    );
   }
 }
 
 // Helper to convert image
 async function convertAndImage(imageUri: string): Promise<string> {
   try {
-    const response = await axios.get(imageUri, { responseType: "arraybuffer" });
-    const base64Image = Buffer.from(response.data).toString("base64");
+    const response = await axios.get(imageUri, {
+      responseType: "arraybuffer",
+      timeout: 8000,
+    });
 
-    return base64Image;
+    return Buffer.from(response.data).toString("base64");
   } catch (error) {
     console.error("Error downloading the image:", error);
     throw new Error("Failed to download image");
   }
 }
-
 
 // Helper to analyze image with generative model
 async function analyzeImage(prompt: string, imageUri: string): Promise<string> {
@@ -58,7 +67,7 @@ async function analyzeImage(prompt: string, imageUri: string): Promise<string> {
 
     return result.response.text();
   } catch (error) {
-    console.log("Error analyzing the image:", error);
+    console.error("Error analyzing the image:", error);
     throw new Error("Failed to analyze image");
   }
 }

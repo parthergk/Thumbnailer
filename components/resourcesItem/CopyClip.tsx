@@ -29,13 +29,12 @@ const CopyClip: React.FC<CopyClipProps> = ({ copyClip }) => {
     }, []);
 
     return (
-        <Button
-            variant="outline"
-            size="icon"
+        <button
+        className=' border px-2 rounded-sm'
             onClick={() => copyToClipboard(copyClip)}
         >
-            {copy ? <Copy className="h-4 w-4" /> : <CircleCheck />}
-        </Button>
+            {copy ? <Copy className="h-4 w-4 text-neutral-800 dark:text-neutral-300" /> : <CircleCheck />}
+        </button>
     );
 };
 
