@@ -1,7 +1,6 @@
 "use client";
 import LeftSideBar from "@/components/LeftSideBar";
 import { useSearchParams } from "next/navigation";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { useDetailItem } from "@/context/DetailItelmProvider";
 import Font from "@/components/resourcesItem/Font";
@@ -16,18 +15,16 @@ import {
   FONT_AND_BACKGROUND_PROMPT,
 } from "@/lib/prompts";
 import { Suspense } from "react";
-import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-// Define the type for font and color data
+
 interface FontItem {
   text: string;
   [key: string]: string;
 }
 
 interface ColorItem {
-  // Add properties based on your data structure
   code: string;
   name: string;
 }
@@ -36,13 +33,12 @@ const Analyze: React.FC = () => {
   const [feedback, setFeedback] = useState("");
   const searchParams = useSearchParams();
   const thumbnailUrl = searchParams ? searchParams.get("thumbnailUrl") : null;
+  
   const router = useRouter();
-  // get the user id form the session
   const { data, status } = useSession();
 
-  const { detailItem } = useDetailItem(); // You may want to type `detailItem`
+  const { detailItem } = useDetailItem();
 
-  // Initialize state with type definitions
   const [textDataorg, setTextDataorg] = useState<FontItem[]>([]);
   const [colorData, setColorData] = useState<ColorItem[]>([]);
   const [isSaving, setIsSeving] = useState<boolean>(false);
@@ -67,6 +63,8 @@ const Analyze: React.FC = () => {
   const apicall = async (prompts: string) => {
     if (!thumbnailUrl) return;
 
+    console.log("ai api call", thumbnailUrl);
+    
     try {
       const data = await aiApi({ prompt: prompts, img: thumbnailUrl });
       // const jsonresponse = data.replace(/```json|```/g, '');

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { User, AtSign, Mail } from "lucide-react";
+import { AtSign, Mail } from "lucide-react";
 import { signOut } from "next-auth/react";
 
 interface UserDetailProps {
