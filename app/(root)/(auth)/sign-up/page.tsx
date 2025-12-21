@@ -4,9 +4,6 @@ import React, { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import FormFieldCp from "@/components/FormField";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
@@ -15,25 +12,34 @@ const formSchema = z.object({
   username: z.string().nonempty("Username is required"),
   email: z
     .string()
-    .email("Invalid email address")
-    .nonempty("Email is required"),
+    .nonempty("Email is required")
+    .email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
+
+type FormValues = z.infer<typeof formSchema>;
+
+const fields = [
+  { name: "name", label: "Name", type: "text" },
+  { name: "username", label: "Username", type: "text" },
+  { name: "email", label: "Email", type: "email" },
+  { name: "password", label: "Password", type: "password" },
+] as const;
 
 const Page: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string>("");
+
   const router = useRouter();
 
-  const fieldNames: (keyof z.infer<typeof formSchema>)[] = [
-    "name",
-    "username",
-    "email",
-    "password",
-  ];
-
-  const form = useForm<z.infer<typeof formSchema>>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
+    mode: "onSubmit",
     defaultValues: {
       name: "",
       username: "",
@@ -42,7 +48,7 @@ const Page: React.FC = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: FormValues) => {
     setError(null);
     setFeedback("");
 
@@ -53,75 +59,104 @@ const Page: React.FC = () => {
         body: JSON.stringify(values),
       });
 
-      if (response.ok) {
-        const result = await response.json();
+      const result = await response.json();
 
-        if (result.success) {
-          setFeedback(
-            "Account created successfully! Please check your email to verify your account."
-          );
-
-          form.reset();
-
-          const queryParams = new URLSearchParams({
-            username: result.username,
-          }).toString();
-          const url = `/verifiyUser?${queryParams}`;
-          router.replace(url);
-        } else {
-          setError(result.message || "Something went wrong. Please try again.");
-        }
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Failed to sign up. Please try again.");
+      if (!response.ok) {
+        setError(result.message || "Failed to sign up. Please try again.");
+        return;
       }
-    } catch (submissionError) {
+
+      if (result.success) {
+        setFeedback(
+          "Account created successfully! Please check your email to verify your account."
+        );
+
+        reset();
+
+        const queryParams = new URLSearchParams({
+          username: result.username,
+        }).toString();
+
+        router.replace(`/verifiyUser?${queryParams}`);
+      } else {
+        setError(result.message || "Something went wrong.");
+      }
+    } catch {
       setError("Unable to connect to the server. Please try again later.");
     }
   };
 
   return (
-    <div className="mt-16 flex justify-center w-full">
-      <div className="mt-4 w-full max-w-xs md:max-w-sm h-full max-h-min bg-white dark:bg-neutral-900 shadow-md rounded-lg p-6 border">
-        <h2 className="text-black dark:text-white text-2xl font-bold text-center mb-6">
-          Sign Up
+    <div className="mt-16 flex justify-center w-full min-h-screen bg-white dark:bg-neutral-900 border-t">
+      <div className="mt-4 w-full max-w-xs md:max-w-sm p-6">
+        <h2 className="text-neutral-900 dark:text-white text-2xl font-semibold mb-4">
+          Create your free account
         </h2>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {fieldNames.map((name) => (
-              <FormFieldCp key={name} name={name} form={form} />
-            ))}
 
-            <Button
-              type="submit"
-              disabled={form.formState.isSubmitting}
-              className="w-full text-white dark:text-neutral-950 font-medium py-2 px-4 rounded-md"
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+          {fields.map((field) => (
+            <div
+              key={field.name}
+              className="flex flex-col space-y-1 text-neutral-900 dark:text-white"
             >
-              {form.formState.isSubmitting ? "Submitting..." : "Sign Up"}
-            </Button>
-          </form>
-        </Form>
+              <label htmlFor={field.name}>{field.label}</label>
 
-        <div className=" w-full text-center my-2 flex justify-center items-center">
-          <p className=" h-px w-full bg-neutral-200"></p>
-          <span className=" mx-2">Or</span>
-          <p className=" h-px w-full bg-neutral-200"></p>
+              <input
+                id={field.name}
+                type={field.type}
+                {...register(field.name)}
+                aria-invalid={!!errors[field.name]}
+                className={`border rounded-sm px-2 py-1 bg-transparent outline-none
+                  ${
+                    errors[field.name]
+                      ? "border-red-500"
+                      : "border-neutral-400"
+                  }
+                  text-neutral-700 dark:text-neutral-300`}
+              />
+
+              {errors[field.name] && (
+                <p role="alert" className="text-red-500 text-xs">
+                  {errors[field.name]?.message}
+                </p>
+              )}
+            </div>
+          ))}
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-medium py-1.5 px-2 rounded-sm disabled:opacity-60"
+          >
+            {isSubmitting ? "Submitting..." : "Sign Up"}
+          </button>
+        </form>
+
+        {/* Divider */}
+        <div className="w-full text-center my-4 flex items-center gap-2">
+          <span className="flex-1 h-px bg-neutral-400" />
+          <span className="text-sm text-neutral-700 dark:text-neutral-300">
+            Or
+          </span>
+          <span className="flex-1 h-px bg-neutral-400" />
         </div>
-        <Button
-          type="submit"
+
+        {/* Google Sign Up */}
+        <button
+          type="button"
           onClick={() => signIn("google", { callbackUrl: "/" })}
-          className="w-full text-white dark:text-neutral-950 font-medium py-2 px-4 rounded-md"
+          className="w-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-medium py-2 rounded-sm"
         >
           Sign Up with Google
-        </Button>
-        {/* Feedback/Error Messages */}
+        </button>
+
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
         {feedback && <p className="text-green-500 text-sm mt-4">{feedback}</p>}
 
-        <div className="text-black dark:text-neutral-400 text-sm mt-4 text-center">
+        <div className="text-sm mt-4 text-neutral-700 dark:text-neutral-400">
           Already have an account?{" "}
           <span
-            className="inline font-medium cursor-pointer underline"
+            className="font-medium underline cursor-pointer"
             onClick={() => router.replace("/sign-in")}
           >
             Sign In
