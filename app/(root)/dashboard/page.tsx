@@ -90,7 +90,7 @@ const ThumbnailFetcher = () => {
             placeholder="Enter YouTube video URL"
             value={videoUrl}
             onChange={(e) => setVideoUrl(e.target.value)}
-            className=" text-neutral-900 bg-neutral-50/20 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-600 text-sm sm:text-base w-full max-w-72 sm:max-w-xl focus:outline-none py-1 sm:py-1.5 px-2 rounded-sm"
+            className=" text-neutral-900 dark:text-white bg-neutral-50/20 dark:bg-neutral-800/50 border border-neutral-100 dark:border-neutral-600 text-sm sm:text-base w-full max-w-72 sm:max-w-xl focus:outline-none py-1 sm:py-1.5 px-2 rounded-sm"
           />
           <button
             onClick={fetchThumbnail}
@@ -101,9 +101,7 @@ const ThumbnailFetcher = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-4xl mx-auto">
-      {/* Card wrapper */}
-      <div className="bg-white dark:bg-neutral-900 rounded-xl">
+      <div className="bg-white dark:bg-neutral-900 rounded-xl px-4">
         {/* Content */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 max-h-[400px] overflow-y-auto scrollbar-thin pb-24">
           {thumbnails.map((thumbnailUrl, index) => (
@@ -140,7 +138,6 @@ const ThumbnailFetcher = () => {
           ))}
         </div>
       </div>
-    </div>
     </div>
   );
 };

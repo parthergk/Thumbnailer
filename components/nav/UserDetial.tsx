@@ -1,6 +1,6 @@
+"use client";
+
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { User, AtSign, Mail } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -15,43 +15,57 @@ interface UserDetailProps {
   };
 }
 
-const UserDetial: React.FC<UserDetailProps> = ({ isUser, data }) => {
+const UserDetail: React.FC<UserDetailProps> = ({ isUser, data }) => {
+  if (!isUser) return null;
+
   return (
-    <Card
-      className={`${
-        isUser ? "absolute" : "hidden"
-      } w-64 absolute top-16 right-0 shadow-lg`}
-    >
-      <CardContent className="p-4">
-        <div className="space-y-4">
-          <div className="flex justify-center">
-            <div className="h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center">
-              <User className="h-8 w-8 text-gray-500" />
-            </div>
+    <div className="absolute top-16 right-5 w-64 rounded-lg bg-white dark:bg-neutral-900 text-white shadow-lg border border-neutral-300 dark:border-neutral-800  z-50">
+      <div className="p-4 space-y-4">
+        {/* Avatar */}
+        {/* <div className="flex justify-center">
+          <div className="h-16 w-16 rounded-full bg-neutral-800 flex items-center justify-center">
+            <User className="h-8 w-8 text-neutral-400" />
           </div>
-          <div className="space-y-2 text-center">
-            <h3 className="font-semibold text-lg">{data?.name || "Guest"}</h3>
-            <div className="flex items-center justify-center gap-1.5 text-sm text-gray-600">
+        </div> */}
+
+        {/* User Info */}
+        <div className="text-center space-y-2">
+          <h3 className="text-lg font-semibold text-neutral-800 dark:text-white">
+            {data?.name || "Guest"}
+          </h3>
+
+          {data?.username && (
+            <div className="flex items-center justify-center gap-1.5 text-sm text-neutral-400">
               <AtSign className="h-3.5 w-3.5" />
-              <span>{data?.username}</span>
+              <span>{data.username}</span>
             </div>
-            <div className="flex items-center justify-center gap-1.5 text-sm text-gray-600">
-              <Mail className="h-3.5 w-3.5" />
-              <span>{data?.email || "N/A"}</span>
-            </div>
-          </div>
-          <div className="pt-2 flex flex-col justify-center items-center space-y-4">
-            <Button className="w-full">
-              <a href="/saved-thumbnails">View Saved Thumbnails</a>
-            </Button>
-            <Button className="w-full" onClick={() => signOut()}>
-              Sign Out
-            </Button>
+          )}
+
+          <div className="flex items-center justify-center gap-1.5 text-sm text-neutral-400">
+            <Mail className="h-3.5 w-3.5" />
+            <span>{data?.email || "N/A"}</span>
           </div>
         </div>
-      </CardContent>
-    </Card>
+
+        {/* Actions */}
+        <div className="pt-2 space-y-3">
+          <a
+            href="/saved-thumbnails"
+            className="block w-full text-center rounded-md bg-neutral-800 dark:bg-white dark:text-neutral-800 dark:hover:bg-neutral-200 hover:bg-neutral-700 transition px-4 py-2 text-sm font-medium"
+          >
+            View Saved Thumbnails
+          </a>
+
+          <button
+            onClick={() => signOut()}
+            className="w-full rounded-md shadow-lg border-t bg-white dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700 text-neutral-900 hover:bg-neutral-100 transition px-4 py-2 text-sm font-medium"
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default UserDetial;
+export default UserDetail;
