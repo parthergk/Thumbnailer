@@ -44,7 +44,11 @@ export async function POST(req: NextRequest) {
       user.isVerified = true;
       await user.save();
       return NextResponse.json(
-        { success: true, message: "Email verification successful." },
+        {
+          success: true,
+          email: user.email,
+          message: "Email verification successful.",
+        },
         { status: 200 }
       );
     } else {

@@ -12,11 +12,12 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
+        autoLogin: { label: "Auto Login", type: "text" },
       },
 
       async authorize(credentials, req): Promise<any> {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("missing credentials");
+        if (!credentials?.email) {
+          throw new Error("Email is required");
         }
 
         await connectDB();
@@ -25,13 +26,23 @@ export const authOptions: NextAuthOptions = {
           const user = await User.findOne({
             email: credentials?.email,
           });
+          if (!user) {
+            throw new Error("Invalid email");
+          }
 
           if (!user?.isVerified) {
             throw new Error("User not verified");
           }
 
-          if (!user) {
-            throw new Error("Invalid email");
+          // credentials for auto login
+          if (credentials.autoLogin === "true") {
+            
+            return user;
+          }
+
+          //password login
+          if (!credentials.password) {
+            throw new Error("Password is required");
           }
 
           const isMatch = await bcrypt.compare(

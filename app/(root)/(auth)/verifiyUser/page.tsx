@@ -2,101 +2,121 @@
 
 import React, { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const formSchema = z.object({
-    code: z.string().nonempty("Verification code is required").min(4, "Verification code must be at least 4 digits"),
-  });
-  
+  code: z
+    .string()
+    .nonempty("Verification code is required")
+    .min(4, "Verification code must be at least 4 digits"),
+});
 
-const Sign_in: React.FC = () => {
+type FormValues = z.infer<typeof formSchema>;
+
+const VerifyEmail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState("");
+
   const router = useRouter();
   const searchParams = useSearchParams();
-  const username = searchParams?.get('username');
-  const [feedback, setFeedback] = useState('');
-  
-  const form = useForm<z.infer<typeof formSchema>>({
+  const username = searchParams?.get("username");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       code: "",
     },
   });
-  
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+
+  const onSubmit = async (values: FormValues) => {
     setError(null);
-    setFeedback('');
-    
-    try {
-      const result = await fetch('/api/auth/verify', {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: values.code, username }), // Send code as object
-      });
-  
-      if (result.ok) {
-        setFeedback("Verification Successful");
-        form.reset();
-        // Uncomment to redirect after success
-        // const response = await result.json();
-        // window.location.href = response.url || '/';
-      } else {
-        const errorData = await result.json();
-        setError(errorData.message || "Verification failed. Please try again.");
-      }
-    } catch (err) {
-      console.error("Unexpected error during verification:", err);
-      setError("An unexpected error occurred. Please try again.");
+    setFeedback("");
+
+    if (!username) {
+      setError("Invalid verification link.");
+      return;
     }
-  }
-  
+
+    try {
+      const response = await fetch("/api/auth/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: values.code,
+          username,
+        }),
+      });
+
+      const result = await response.json();
+      
+      if (!response.ok) {
+        setError(result.message || "Verification failed. Please try again.");
+        return;
+      }
+
+      setFeedback("Verification successful 🎉");
+      reset();
+
+      const signInResult = await signIn("credentials", {
+        redirect: false,
+        email: result.email,
+        autoLogin: "true",
+      });
+
+      if (signInResult?.error) {
+        setError("Auto-login failed. Please login manually.");
+        return;
+      }
+      router.push("/dashboard");
+    } catch {
+      setError("Unable to connect to server. Please try again.");
+    }
+  };
 
   return (
-    <div className="mt-16 flex justify-center w-full">
-      <div className="mt-24 md:mt-16 w-full max-w-xs md:max-w-sm h-full max-h-min bg-white shadow-md rounded-lg p-6 border">
-        <h2 className="text-black text-2xl font-bold text-center mb-6">Email Verification</h2>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="block text-sm font-medium text-gray-700">
-                    Verification Code
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      className="text-black outline-none mt-1 block w-full rounded-md shadow-sm sm:text-sm"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-500 text-sm mt-1" />
-                </FormItem>
-              )}
+    <div className="mt-16 flex justify-center w-full min-h-screen bg-white dark:bg-neutral-900 border-t">
+      <div className="mt-4 w-full max-w-xs md:max-w-sm p-6">
+        <h2 className="text-neutral-900 dark:text-white text-2xl font-semibold mb-4 text-center">
+          Email Verification
+        </h2>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+          <div className="flex flex-col space-y-1 text-neutral-900 dark:text-white">
+            <label htmlFor="code">Verification Code</label>
+
+            <input
+              id="code"
+              type="text"
+              {...register("code")}
+              aria-invalid={!!errors.code}
+              className={`border rounded-sm px-2 py-1 bg-transparent outline-none
+                ${errors.code ? "border-red-500" : "border-neutral-400"}
+                text-neutral-700 dark:text-neutral-300`}
             />
 
-            <Button
-              type="submit"
-              disabled={form.formState.isSubmitting}
-              className="w-full text-white font-medium py-2 px-4 rounded-md"
-            >
-              {form.formState.isSubmitting ? "Verifiying..." : "Verifiy"}
-            </Button>
-          </form>
-        </Form>
+            {errors.code && (
+              <p role="alert" className="text-red-500 text-xs">
+                {errors.code.message}
+              </p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 font-medium py-1.5 px-2 rounded-sm disabled:opacity-60"
+          >
+            {isSubmitting ? "Verifying..." : "Verify"}
+          </button>
+        </form>
 
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
         {feedback && <p className="text-green-500 text-sm mt-4">{feedback}</p>}
@@ -108,9 +128,9 @@ const Sign_in: React.FC = () => {
 const Page: React.FC = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Sign_in />
+      <VerifyEmail />
     </Suspense>
   );
 };
 
-export default Page
+export default Page;
