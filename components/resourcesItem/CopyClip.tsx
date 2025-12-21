@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '../ui/button';
 import { CircleCheck, Copy } from 'lucide-react';
 
 interface CopyClipProps {

@@ -1,5 +1,5 @@
 "use client";
-import { User, LogIn } from "lucide-react";
+import { User } from "lucide-react";
 import { useState } from "react";
 import UserDetial from "./UserDetial";
 import { useSession } from "next-auth/react";
