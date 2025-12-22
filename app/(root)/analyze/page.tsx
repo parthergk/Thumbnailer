@@ -45,6 +45,8 @@ const Analyze: React.FC = () => {
   const [feedback, setFeedback] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
+  const [error, setError] = useState<string | null>(null);
+
   const items = [
     { name: "Font", component: <Font data={fonts} /> },
     { name: "Color", component: <Color data={colors} /> },
@@ -55,13 +57,12 @@ const Analyze: React.FC = () => {
 
   const selectedItem = items.find((item) => item.name === detailItem);
 
-  /**
-   * SINGLE optimized API call
-   */
   const analyzeThumbnail = useCallback(async () => {
     if (!thumbnailUrl) return;
 
     setLoading(true);
+    setError(null);
+
     try {
       const res = await fetch("/api/analyze-thumbnail", {
         method: "POST",
@@ -72,28 +73,47 @@ const Analyze: React.FC = () => {
         }),
       });
 
+      if (!res.ok) {
+        const errRes = await res.json().catch(() => null);
+        throw new Error(
+          errRes?.error || "Server error while analyzing thumbnail"
+        );
+      }
+
       const result = await res.json();
 
-      if (!res.ok || !result?.data) {
-        throw new Error("Invalid AI response");
+      if (!result?.success || !result?.data) {
+        throw new Error("AI failed to generate analysis");
       }
 
       const jsonPart = result.data.match(/\{[\s\S]*\}/)?.[0];
+
       if (!jsonPart) {
-        console.error("No JSON found in the response");
-        return;
+        throw new Error("AI response format is invalid");
       }
+
       const parsed = JSON.parse(jsonPart);
+
+      // try {
+      //   const parsed = JSON.parse(jsonPart);
+      // } catch {
+      //   throw new Error("Failed to parse AI response");
+      // }
 
       setFonts(parsed.fonts ?? []);
       setColors(parsed.colors ?? []);
-    } catch (error) {
+    } catch (error: any) {
       console.log("Thumbnail analysis failed:", error);
+      setError(
+        error.message ||
+          "Something went wrong while analyzing the thumbnail. Please try again."
+      );
+      setFonts([]);
+      setColors([]);
     } finally {
       setLoading(false);
     }
   }, [thumbnailUrl]);
-
 
   useEffect(() => {
     analyzeThumbnail();
@@ -103,6 +123,7 @@ const Analyze: React.FC = () => {
     if (!thumbnailUrl) return;
 
     setIsSaving(true);
+    setFeedback("");
     try {
       const response = await fetch("/api/thumbnail", {
         method: "POST",
@@ -121,11 +142,15 @@ const Analyze: React.FC = () => {
       }
 
       const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Failed to save thumbnail");
+      }
       setFeedback(
         result.success ? "Thumbnail saved successfully!" : result.message
       );
-    } catch (error) {
-      console.error("Save error:", error);
+    } catch (error: any) {
+      console.log("Save error:", error);
+      setFeedback(error.message || "Something went wrong while saving");
     } finally {
       setIsSaving(false);
     }
@@ -175,6 +200,10 @@ const Analyze: React.FC = () => {
                           <div className="h-8 bg-neutral-100 dark:bg-neutral-800 rounded-sm" />
                         </div>
                       ))}
+                    </div>
+                  ) : error ? (
+                    <div className="mt-2 rounded-sm border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700">
+                      {error}
                     </div>
                   ) : (
                     selectedItem?.component
