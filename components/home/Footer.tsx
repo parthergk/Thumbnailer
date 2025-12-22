@@ -1,9 +1,8 @@
 import { Twitter, Github, Instagram, Mail } from "lucide-react";
-import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-white dark:bg-neutral-950 text-neutral-800 dark:text-neutral-300 pt-20 pb-5 px-4">
+    <footer className="bg-white dark:bg-neutral-900 text-neutral-800 dark:text-neutral-300 pt-20 pb-5 px-4">
       <div className="max-w-6xl px-0 md:px-10 flex flex-col md:flex-row justify-between gap-12">
         {/* About Section */}
         <div className="col-span-1 md:col-span-2">

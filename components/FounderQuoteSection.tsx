@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function FounderQuoteSection() {
   return (
-    <section className="relative w-full mb-10 px-6 bg-white dark:bg-neutral-950">
+    <section className="relative w-full pb-10 px-6 bg-white dark:bg-neutral-900">
       <div className=" w-full mx-auto text-center ">
         <p className=" font-normal text-base md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
           AI makes me faster, but raw AI kills creativity. That`s why{" "}

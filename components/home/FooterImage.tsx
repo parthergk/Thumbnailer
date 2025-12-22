@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ArrowRight, Youtube } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function HeroTextOnly() {
   return (
-    <section className=" px-6 py-20 sm:py-24">
+    <section className=" px-6 py-20 sm:py-24 bg-white dark:bg-neutral-900">
       <div
         className="
           mx-auto 

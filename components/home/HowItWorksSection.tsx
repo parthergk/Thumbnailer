@@ -1,6 +1,5 @@
 import { LinkIcon, Search, Zap } from "lucide-react";
-import { StepCard } from "@/components/ui/step-card";
-
+import { StepCard } from "../StepCard";
 const steps = [
   {
     icon: LinkIcon,
@@ -25,7 +24,7 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <div className="py-40 px-4 bg-gradient-to-b from-neutral-100 to-white dark:from-neutral-950 dark:to-neutral-950">
+    <div className="py-40 px-4 bg-gradient-to-b from-neutral-100 to-white dark:from-neutral-950 dark:to-neutral-900">
       <div className=" flex justify-center items-center gap-2 m-auto w-fit px-2.5 py-0.5 mb-3 bg-neutral-50 dark:bg-neutral-800 dark:shadow-neutral-950 border shadow-md rounded-full ">
         <div className=" h-1.5 w-1.5 bg-neutral-900 dark:bg-white rounded-full"></div>
         <span className=" text-xs sm:text-sm font-medium text-neutral-900 dark:text-white">
